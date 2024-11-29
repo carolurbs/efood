@@ -17,6 +17,7 @@ text-decoration:none;
 body{
 background-color: ${colors.cream};
 color: ${colors.salmon};
+
 }
 `
 
