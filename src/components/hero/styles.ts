@@ -9,6 +9,9 @@ export const HeroBar = styled.header`
   font-weight: 900;
   font-size: 32px;
   text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
   li {
     margin-bottom: 40px;
     img {

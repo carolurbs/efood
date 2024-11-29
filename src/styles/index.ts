@@ -17,7 +17,11 @@ text-decoration:none;
 body{
 background-color: ${colors.cream};
 color: ${colors.salmon};
-
+.container{
+max-width: 1024px;
+width: 100%
+margin: 0 auto;
+}
 }
 `
 

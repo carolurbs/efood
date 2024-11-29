@@ -12,6 +12,8 @@ export const HeaderBar = styled.header`
     font-weight: 900;
     font-size: 16px;
     text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     li {
       margin: 72px 256px;
     }
