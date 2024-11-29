@@ -1,7 +1,7 @@
 import EstiloGlobal from './styles'
 import Header from './components/header'
-import Hero from './components/hero'
 import Banner from './components/banner'
+import Footer from './components/footer'
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
         <Header />
       </div>
       <Banner />
+      <Footer />
     </main>
   )
 }

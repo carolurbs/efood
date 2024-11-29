@@ -11,6 +11,7 @@ export const HeaderBar = styled.header`
     justify-content: space-beetween;
     font-weight: 900;
     font-size: 16px;
+    line-height: 20px;
     text-align: center;
     background-size: cover;
     background-repeat: no-repeat;
