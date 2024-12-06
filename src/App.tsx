@@ -1,18 +1,25 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EstiloGlobal from './styles'
-import Header from './components/header'
-import Banner from './components/banner'
-import Footer from './components/footer'
+import Header from './components/Header'
+import Banner from './components/Banner'
+import Footer from './components/Footer'
 
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <Banner />
+  }
+])
 function App() {
   return (
-    <main>
+    <>
       <EstiloGlobal />
       <div className="container">
         <Header />
       </div>
-      <Banner />
+      <RouterProvider router={routes} />
       <Footer />
-    </main>
+    </>
   )
 }
 
