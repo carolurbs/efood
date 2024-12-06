@@ -3,7 +3,6 @@ import EstiloGlobal from './styles'
 import Header from './components/Header'
 import Banner from './components/Banner'
 import Footer from './components/Footer'
-
 const routes = createBrowserRouter([
   {
     path: '/',
