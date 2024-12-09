@@ -3,10 +3,16 @@ import EstiloGlobal from './styles'
 import Header from './components/Header'
 import Banner from './components/Banner'
 import Footer from './components/Footer'
+import Product from './components/Product'
 const routes = createBrowserRouter([
   {
     path: '/',
-    element: <Banner />
+    element: (
+      <>
+        <Banner />
+        <Product />
+      </>
+    )
   }
 ])
 function App() {
