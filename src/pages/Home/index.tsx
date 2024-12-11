@@ -1,8 +1,10 @@
 import Hero from '../../components/Hero'
+import RestaurantsList from '../../components/RestaurantsList'
 
 const Home = () => (
   <>
-    <Hero></Hero>
+    <Hero />
+    <RestaurantsList />
   </>
 )
 export default Home

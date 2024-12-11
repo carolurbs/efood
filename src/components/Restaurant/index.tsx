@@ -24,7 +24,7 @@ const Restaurant = ({ title, description, infos, image, rating }: Props) => (
         <Star>{rating}</Star>
       </S.TitleContainer>
       <S.Description>{description}</S.Description>
-      <Button type={'link'} title={'Saiba Mais'}>
+      <Button to={'/profile'} type={'link'} title={'Saiba Mais'}>
         {'Saiba Mais'}
       </Button>
     </S.Content>

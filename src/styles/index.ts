@@ -16,10 +16,11 @@ list-style: none;
 text-decoration:none;
 }
 body{
+  overflow-x:hidden;
 background-color: ${colors.cream};
 color: ${colors.salmon};
 .container{
-max-width: 1024px;
+max-width: 2024px;
 width: 100%
 margin: 0 auto;
 }

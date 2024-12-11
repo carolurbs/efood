@@ -11,7 +11,7 @@ export const Card = styled.div`
     width: 100%;
   }
   ${TagContainer} {
-    margin: 16px 8px;
+    margin: 8px;
   }
 `
 export const Infos = styled.div`

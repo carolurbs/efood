@@ -1,16 +1,22 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EstiloGlobal from './styles'
-import Header from './components/Header'
-import Banner from './components/Banner'
+import Home from './pages/Home'
+import Profile from './pages/Profile'
 import Footer from './components/Footer'
-import RestaurantsList from './components/RestaurantsList'
 const routes = createBrowserRouter([
   {
     path: '/',
     element: (
       <>
-        <Banner />
-        <RestaurantsList />
+        <Home />
+      </>
+    )
+  },
+  {
+    path: '/profile',
+    element: (
+      <>
+        <Profile />
       </>
     )
   }
@@ -20,10 +26,9 @@ function App() {
     <>
       <EstiloGlobal />
       <div className="container">
-        <Header />
+        <RouterProvider router={routes} />
+        <Footer />
       </div>
-      <RouterProvider router={routes} />
-      <Footer />
     </>
   )
 }
