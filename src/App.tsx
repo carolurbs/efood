@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EstiloGlobal from './styles'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import Footer from './components/Footer'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -27,7 +26,6 @@ function App() {
       <EstiloGlobal />
       <div className="container">
         <RouterProvider router={routes} />
-        <Footer />
       </div>
     </>
   )
