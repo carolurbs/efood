@@ -27,7 +27,7 @@ function App() {
       <EstiloGlobal />
       <div className="container">
         <RouterProvider router={routes} />
-        <Footer />
+        <Footer/>
       </div>
     </>
   )
