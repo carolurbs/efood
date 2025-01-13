@@ -15,12 +15,14 @@ export const Links = styled.ul`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  padding-top: 72px;
-  margin-left: 256px;
+  padding: 72px 400px 88px 256px;
 `
 export const Items = styled.li`
-  margin-right:480px;
-
+margin-right: 256px;
   a {
     color: ${colors.salmon};
+    img{
+    display:flex;
+    align-items: center;
+    }
 `

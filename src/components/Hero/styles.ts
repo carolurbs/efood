@@ -15,6 +15,7 @@ export const HeroBar = styled.header`
 
   li {
     margin-bottom: 40px;
+    padding-right: 488px;
     img {
       margin: 40px 0 144px;
     }

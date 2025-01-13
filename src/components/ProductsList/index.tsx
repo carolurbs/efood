@@ -47,20 +47,6 @@ const ProductsList = () => (
           }
           image={pizza}
         />
-        <Product
-          title={'Pizza Marguerita'}
-          description={
-            'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-          }
-          image={pizza}
-        />
-        <Product
-          title={'Pizza Marguerita'}
-          description={
-            'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-          }
-          image={pizza}
-        />
       </List>
     </div>
   </Container>

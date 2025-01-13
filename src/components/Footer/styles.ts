@@ -10,7 +10,7 @@ export const FooterBar = styled.footer`
   align-items: center;
   div {
     margin-top: 36px;
-    padding-right: 176px;
+    padding-right: 488px;
   }
 `
 export const Links = styled.ul`
@@ -24,8 +24,8 @@ export const Disclaimer = styled.p`
   font-size: 10px;
   font-weight: 400;
   text-align: center;
-  max-width: 560px;
+  max-width: 192ch;
   display: inline;
   margin-top: 40px;
-  padding-right: 176px;
+  padding-right: 488px;
 `

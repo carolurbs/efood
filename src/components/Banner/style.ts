@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
+
 export const Imagem = styled.div`
-  width: 100%;
-  height: 280px;
-  display: block;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 100%;
+  height: 280px;
   color: ${colors.white};
+
   h2 {
     font-size: 32px;
     line-height: 40px;
