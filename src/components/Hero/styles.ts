@@ -14,10 +14,10 @@ export const HeroBar = styled.header`
   background-repeat: no-repeat;
 
   li {
-    margin-bottom: 40px;
-    padding-right: 488px;
+    margin: 40px 0;
+    max-width: 32ch;
     img {
-      margin: 40px 0 144px;
+      margin-bottom: 120px;
     }
   }
 `

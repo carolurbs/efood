@@ -15,7 +15,8 @@ export const Links = styled.ul`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  padding: 72px 400px 88px 256px;
+  padding: 72px 12%;
+  gap: 20px;
 `
 export const Items = styled.li`
 margin-right: 256px;
@@ -23,6 +24,5 @@ margin-right: 256px;
     color: ${colors.salmon};
     img{
     display:flex;
-    align-items: center;
     }
 `
