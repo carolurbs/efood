@@ -24,14 +24,12 @@ const Restaurant = ({
   <S.Card>
     <img src={image} alt={title} />
     <S.Infos>
-      {featured ? (
+      {featured && (
         <>
           <TagContainer>{special}</TagContainer>
-          <TagContainer>{category}</TagContainer>
         </>
-      ) : (
-        <TagContainer>{category}</TagContainer>
       )}
+      <TagContainer>{category}</TagContainer>
     </S.Infos>
     <S.Content>
       <S.TitleContainer>
