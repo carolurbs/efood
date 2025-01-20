@@ -5,18 +5,33 @@ import Button from '../Button'
 export type Props = {
   title: string
   description: string
-  infos: string[]
+  featured?: boolean
+  special?: string
+  category: string
   image: string
-  rating: string
+  rating: number
 }
 
-const Restaurant = ({ title, description, infos, image, rating }: Props) => (
+const Restaurant = ({
+  title,
+  description,
+  featured,
+  special,
+  category,
+  image,
+  rating
+}: Props) => (
   <S.Card>
     <img src={image} alt={title} />
     <S.Infos>
-      {infos.map((info) => (
-        <TagContainer key={info}>{info}</TagContainer>
-      ))}
+      {featured ? (
+        <>
+          <TagContainer>{special}</TagContainer>
+          <TagContainer>{category}</TagContainer>
+        </>
+      ) : (
+        <TagContainer>{category}</TagContainer>
+      )}
     </S.Infos>
     <S.Content>
       <S.TitleContainer>
