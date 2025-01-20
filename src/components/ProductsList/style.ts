@@ -9,3 +9,4 @@ export const List = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
 `
+export const Modal = styled.div``

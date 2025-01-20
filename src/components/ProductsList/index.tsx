@@ -1,6 +1,7 @@
 import Product from '../Product'
 import { Container, List } from './style'
 import pizza from '../../assets/pizza.png'
+import close from '../../assets/close 1.png'
 
 type Item = {
   name: string
@@ -55,6 +56,17 @@ const ProductsList = () => (
           image={pizza}
         />
       </List>
+      <div>
+        <div>
+          <header>
+            <img src={close} alt="Fechar" />
+          </header>
+          <h4>Pizza Marguerita</h4>
+          <p>Descrição</p>
+          <p>Porções</p>
+          <img src={pizza} alt="Imagem do Produto" />
+        </div>
+      </div>
     </div>
   </Container>
 )

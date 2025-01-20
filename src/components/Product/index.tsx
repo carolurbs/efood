@@ -12,8 +12,8 @@ const Product = ({ title, description, image }: Props) => (
       <img src={image} alt={title} />
       <h3>{title}</h3>
       <Description>{description}</Description>
-      <Button type={'button'} title={'Adicionar ao Carrinho'}>
-        {'Adicionar ao Carrinho'}
+      <Button type={'button'} title={'Saiba Mais'}>
+        {'Saiba Mais'}
       </Button>
     </Content>
   </Card>
