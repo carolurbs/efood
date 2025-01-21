@@ -3,12 +3,6 @@ import { Container, List } from './style'
 import pizza from '../../assets/pizza.png'
 import close from '../../assets/close 1.png'
 
-type Item = {
-  name: string
-  url: string
-  description: string
-}
-
 const ProductsList = () => (
   <Container>
     <div className="container">
