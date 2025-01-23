@@ -6,7 +6,6 @@ export type Props = {
   title: string
   description: string
   featured?: boolean
-  special?: string
   category: string
   image: string
   rating: number
@@ -16,7 +15,6 @@ const Restaurant = ({
   title,
   description,
   featured,
-  special,
   category,
   image,
   rating
@@ -26,7 +24,7 @@ const Restaurant = ({
     <S.Infos>
       {featured && (
         <>
-          <TagContainer>{special}</TagContainer>
+          <TagContainer>Destaque da Semana</TagContainer>
         </>
       )}
       <TagContainer>{category}</TagContainer>

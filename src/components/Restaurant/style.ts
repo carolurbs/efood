@@ -8,7 +8,9 @@ export const Card = styled.div`
   border: 1px solid ${colors.salmon};
   position: relative;
   img {
+    max-height: 216px;
     width: 100%;
+    object-fit: cover;
   }
   ${TagContainer} {
     margin: 8px;

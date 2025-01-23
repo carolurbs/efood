@@ -7,6 +7,7 @@ import Button from '../Button'
 
 const ProductsList = () => {
   const [modalIsOpened, setModalOpen] = useState(false)
+  const [modalUrl, setModalURL] = useState('')
   return (
     <S.Container>
       <div className="container">
