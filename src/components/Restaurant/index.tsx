@@ -18,28 +18,36 @@ const Restaurant = ({
   category,
   image,
   rating
-}: Props) => (
-  <S.Card>
-    <img src={image} alt={title} />
-    <S.Infos>
-      {featured && (
-        <>
-          <TagContainer>Destaque da Semana</TagContainer>
-        </>
-      )}
-      <TagContainer>{category}</TagContainer>
-    </S.Infos>
-    <S.Content>
-      <S.TitleContainer>
-        <h3>{title}</h3>
-        <Star>{rating}</Star>
-      </S.TitleContainer>
-      <S.Description>{description}</S.Description>
-      <Button to={'/profile'} type={'link'} title={'Saiba Mais'}>
-        {'Saiba Mais'}
-      </Button>
-    </S.Content>
-  </S.Card>
-)
+}: Props) => {
+  const getDescription = (descricao: string) => {
+    if (descricao.length > 86) {
+      return descricao.slice(0, 83) + '...'
+    }
+    return descricao
+  }
+  return (
+    <S.Card>
+      <img src={image} alt={title} />
+      <S.Infos>
+        {featured && (
+          <>
+            <TagContainer>Destaque da Semana</TagContainer>
+          </>
+        )}
+        <TagContainer>{category}</TagContainer>
+      </S.Infos>
+      <S.Content>
+        <S.TitleContainer>
+          <h3>{title}</h3>
+          <Star>{rating}</Star>
+        </S.TitleContainer>
+        <S.Description>{getDescription(description)}</S.Description>
+        <Button to={'/profile'} type={'link'} title={'Saiba Mais'}>
+          {'Saiba Mais'}
+        </Button>
+      </S.Content>
+    </S.Card>
+  )
+}
 
 export default Restaurant
