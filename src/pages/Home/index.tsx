@@ -2,6 +2,15 @@ import Hero from '../../components/Hero'
 import RestaurantsList from '../../components/RestaurantsList'
 import Footer from '../../components/Footer'
 import { useEffect, useState } from 'react'
+export interface MenuItem {
+  foto: string
+  preco: number
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+}
+
 export type Restaurants = {
   id: number
   titulo: string
@@ -10,6 +19,7 @@ export type Restaurants = {
   avaliacao: number
   descricao: string
   capa: string
+  cardapio: MenuItem[]
 }
 const Home = () => {
   const [locals, setLocals] = useState([])

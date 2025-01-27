@@ -4,62 +4,26 @@ import * as S from './style'
 import pizza from '../../assets/pizza.png'
 import close from '../../assets/close 1.png'
 import Button from '../Button'
-
-const ProductsList = () => {
+import { MenuItem } from '../../pages/Home'
+export type Props = {
+  dishes: MenuItem[]
+}
+const ProductsList = ({ dishes }: Props) => {
   const [modalIsOpened, setModalOpen] = useState(false)
-  const [modalUrl, setModalURL] = useState('')
   return (
     <S.Container>
       <div className="container">
         <S.List>
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
-          <Product
-            title={'Pizza Marguerita'}
-            description={
-              'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!'
-            }
-            image={pizza}
-            onButtonClick={() => setModalOpen(true)}
-          />
+          {dishes.map((dishes) => (
+            <>
+              <Product
+                id={dishes.id}
+                title={dishes.nome}
+                description={dishes.descricao}
+                image={dishes.foto}
+              />
+            </>
+          ))}
         </S.List>
       </div>
       <S.Modal className={modalIsOpened ? 'visible' : ''}>

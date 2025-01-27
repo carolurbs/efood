@@ -12,7 +12,7 @@ const routes = createBrowserRouter([
     )
   },
   {
-    path: '/profile',
+    path: '/profile/:id',
     element: (
       <>
         <Profile />

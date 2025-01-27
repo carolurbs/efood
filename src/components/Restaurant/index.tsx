@@ -9,6 +9,7 @@ export type Props = {
   category: string
   image: string
   rating: number
+  id: number
 }
 
 const Restaurant = ({
@@ -17,7 +18,8 @@ const Restaurant = ({
   featured,
   category,
   image,
-  rating
+  rating,
+  id
 }: Props) => {
   const getDescription = (descricao: string) => {
     if (descricao.length > 86) {
@@ -42,7 +44,7 @@ const Restaurant = ({
           <Star>{rating}</Star>
         </S.TitleContainer>
         <S.Description>{getDescription(description)}</S.Description>
-        <Button to={'/profile'} type={'link'} title={'Saiba Mais'}>
+        <Button to={`profile/${id}`} type={'link'} title={'Saiba Mais'}>
           {'Saiba Mais'}
         </Button>
       </S.Content>

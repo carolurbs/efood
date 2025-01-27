@@ -1,9 +1,12 @@
 import Button from '../Button'
 import { Card, Content, Description } from './styles'
 export type Props = {
+  id: number
   title: string
   description: string
   image: string
+  porcao?: string
+  preco?: number
   onButtonClick?: () => void
 }
 
