@@ -1,15 +1,30 @@
 import { useState } from 'react'
 import Product from '../Product'
 import * as S from './style'
-import pizza from '../../assets/pizza.png'
 import close from '../../assets/close 1.png'
 import Button from '../Button'
 import { MenuItem } from '../../pages/Home'
 export type Props = {
   dishes: MenuItem[]
 }
+export type ModalState = {
+  isVisible: boolean
+}
 const ProductsList = ({ dishes }: Props) => {
-  const [modalIsOpened, setModalOpen] = useState(false)
+  const [modal, setModal] = useState<ModalState>()
+  const [selectedDish, setSelectedDish] = useState<MenuItem>()
+  const openModal = (dishes: MenuItem) => {
+    setSelectedDish(dishes)
+    setModal({
+      isVisible: true
+    })
+  }
+  const closeModal = () => {
+    setSelectedDish(undefined)
+    setModal({
+      isVisible: false
+    })
+  }
   return (
     <S.Container>
       <div className="container">
@@ -17,48 +32,41 @@ const ProductsList = ({ dishes }: Props) => {
           {dishes.map((dishes) => (
             <>
               <Product
+                key={dishes.id}
                 id={dishes.id}
                 title={dishes.nome}
                 description={dishes.descricao}
                 image={dishes.foto}
+                preco={dishes.preco}
+                porcao={dishes.porcao}
+                onButtonClick={() => openModal(dishes)}
               />
             </>
           ))}
         </S.List>
       </div>
-      <S.Modal className={modalIsOpened ? 'visible' : ''}>
+      <S.Modal className={modal?.isVisible && selectedDish ? 'visible' : ''}>
         <S.ModalContainer className="container">
           <header>
-            <img src={close} alt="Fechar" onClick={() => setModalOpen(false)} />
+            <img src={close} alt="Fechar" onClick={() => closeModal()} />
           </header>
           <S.ModalContent>
             <div>
-              <img src={pizza} alt="Imagem do Produto" />
+              <img src={selectedDish?.foto} alt={selectedDish?.nome} />
             </div>
             <div>
               <h4>
-                <b> Pizza Marguerita</b>
+                <b> {selectedDish?.nome}</b>
               </h4>
-              <p>
-                A pizza Margherita é uma pizza clássica da culinária italiana,
-                reconhecida por sua simplicidade e sabor inigualável. Ela é
-                feita com uma base de massa fina e crocante, coberta com molho
-                de tomate fresco, queijo mussarela de alta qualidade, manjericão
-                fresco e azeite de oliva extra-virgem. A combinação de sabores é
-                perfeita, com o molho de tomate suculento e ligeiramente ácido,
-                o queijo derretido e cremoso e as folhas de manjericão frescas,
-                que adicionam um toque de sabor herbáceo. É uma pizza simples,
-                mas deliciosa, que agrada a todos os paladares e é uma ótima
-                opção para qualquer ocasião.
-              </p>
-              <p>Serve: de 2 a 3 pessoas</p>
+              <p>{selectedDish?.descricao}</p>
+              <p>Serve: de {selectedDish?.porcao}</p>
               <Button type={'button'} title={''}>
-                Adicionar ao carrinho - R$ 60,90
+                {`Adicionar ao carrinho - R$ ${selectedDish?.preco}`}
               </Button>
             </div>
           </S.ModalContent>
         </S.ModalContainer>
-        <div className="overlay" onClick={() => setModalOpen(false)}></div>
+        <div className="overlay" onClick={() => closeModal()}></div>
       </S.Modal>
     </S.Container>
   )

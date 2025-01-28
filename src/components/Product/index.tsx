@@ -7,7 +7,7 @@ export type Props = {
   image: string
   porcao?: string
   preco?: number
-  onButtonClick?: () => void
+  onButtonClick: () => void
 }
 
 const Product = ({ title, description, image, onButtonClick }: Props) => (
