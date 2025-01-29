@@ -11,6 +11,13 @@ export type ModalState = {
   isVisible: boolean
 }
 const ProductsList = ({ dishes }: Props) => {
+  const formatPrice = (preco?: number) => {
+    if (preco === undefined) return 'R$ 0,00'
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(preco)
+  }
   const [modal, setModal] = useState<ModalState>()
   const [selectedDish, setSelectedDish] = useState<MenuItem>()
   const openModal = (dishes: MenuItem) => {
@@ -37,8 +44,8 @@ const ProductsList = ({ dishes }: Props) => {
                 title={dishes.nome}
                 description={dishes.descricao}
                 image={dishes.foto}
-                preco={dishes.preco}
-                porcao={dishes.porcao}
+                price={dishes.preco}
+                portion={dishes.porcao}
                 onButtonClick={() => openModal(dishes)}
               />
             </>
@@ -61,7 +68,7 @@ const ProductsList = ({ dishes }: Props) => {
               <p>{selectedDish?.descricao}</p>
               <p>Serve: de {selectedDish?.porcao}</p>
               <Button type={'button'} title={''}>
-                {`Adicionar ao carrinho - R$ ${selectedDish?.preco}`}
+                {`Adicionar ao carrinho - ${formatPrice(selectedDish?.preco)}`}
               </Button>
             </div>
           </S.ModalContent>

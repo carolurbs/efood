@@ -11,7 +11,12 @@ export type Props = {
   rating: number
   id: number
 }
-
+export const getDescription = (descricao: string) => {
+  if (descricao.length > 86) {
+    return descricao.slice(0, 83) + '...'
+  }
+  return descricao
+}
 const Restaurant = ({
   title,
   description,
@@ -21,12 +26,6 @@ const Restaurant = ({
   rating,
   id
 }: Props) => {
-  const getDescription = (descricao: string) => {
-    if (descricao.length > 86) {
-      return descricao.slice(0, 83) + '...'
-    }
-    return descricao
-  }
   return (
     <S.Card>
       <img src={image} alt={title} />

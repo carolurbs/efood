@@ -20,7 +20,7 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <Banner />
+      <Banner restaurant={local} />
       <ProductsList dishes={local.cardapio} />
       <Footer />
     </>

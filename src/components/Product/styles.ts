@@ -7,6 +7,7 @@ export const Card = styled.div`
   background-color: ${colors.salmon};
   color: ${colors.vanila};
   img {
+    max-height: 216px;
     width: 100%;
     margin-bottom: 8px;
   }
@@ -25,5 +26,5 @@ export const Description = styled.p`
   font-weight: 400;
   line-height: 24px;
   font-size: 16px;
-  margin: 8px 0;
+  padding: 8px 0;
 `

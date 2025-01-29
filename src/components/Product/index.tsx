@@ -1,12 +1,13 @@
 import Button from '../Button'
 import { Card, Content, Description } from './styles'
+import { getDescription } from '../Restaurant'
 export type Props = {
   id: number
   title: string
   description: string
   image: string
-  porcao?: string
-  preco?: number
+  portion: string
+  price: number
   onButtonClick: () => void
 }
 
@@ -15,7 +16,7 @@ const Product = ({ title, description, image, onButtonClick }: Props) => (
     <Content>
       <img src={image} alt={title} />
       <h3>{title}</h3>
-      <Description>{description}</Description>
+      <Description>{getDescription(description)}</Description>
       <Button type={'button'} title={'Saiba Mais'} onClick={onButtonClick}>
         {'Saiba Mais'}
       </Button>

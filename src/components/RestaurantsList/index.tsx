@@ -4,6 +4,10 @@ import { Container, List } from './style'
 export type Props = {
   restaurants: Restaurants[]
 }
+export const capitalize = (text: string) => {
+  if (!text) return ''
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
 const RestaurantsList = ({ restaurants }: Props) => (
   <Container>
     <div className="container">
@@ -14,7 +18,7 @@ const RestaurantsList = ({ restaurants }: Props) => (
               id={restaurant.id}
               title={restaurant.titulo}
               featured={restaurant.destacado}
-              category={restaurant.tipo}
+              category={capitalize(restaurant.tipo)}
               rating={restaurant.avaliacao}
               description={restaurant.descricao}
               image={restaurant.capa}

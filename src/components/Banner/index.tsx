@@ -1,10 +1,14 @@
 import * as S from './style'
-import bannerBackground from '../../assets/banner.png'
-const Banner = () => (
-  <S.Imagem style={{ backgroundImage: `url(${bannerBackground})` }}>
+import { Restaurants } from '../../pages/Home'
+import { capitalize } from '../RestaurantsList'
+type Props = {
+  restaurant: Restaurants
+}
+const Banner = ({ restaurant }: Props) => (
+  <S.Imagem style={{ backgroundImage: `url(${restaurant.capa})` }}>
     <div className="container">
-      <S.Culinaria>Italiana</S.Culinaria>
-      <S.Título>La Dolce Vita Trattoria</S.Título>
+      <S.Culinaria>{capitalize(restaurant.tipo)}</S.Culinaria>
+      <S.Título>{restaurant.titulo}</S.Título>
     </div>
   </S.Imagem>
 )
