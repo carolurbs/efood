@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
-  padding: 80px 480px;
+  padding: 80px 172px 120px;
 `
 export const List = styled.ul`
   display: grid;

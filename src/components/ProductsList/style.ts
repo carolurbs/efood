@@ -4,7 +4,7 @@ import { ButtonContainer } from '../Button/styles'
 
 export const Container = styled.div`
   width: 100%;
-  padding: 80px 240px;
+  padding: 64px 172px 120px;
 `
 export const List = styled.ul`
   display: grid;

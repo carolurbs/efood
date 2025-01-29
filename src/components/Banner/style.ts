@@ -4,6 +4,8 @@ import { colors } from '../../styles'
 export const Imagem = styled.div`
   background-size: 100%;
   background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
   height: 100%;
   display: block;
   color: ${colors.white};
@@ -14,7 +16,7 @@ export const Imagem = styled.div`
     h2 {
       font-size: 32px;
       line-height: 40px;
-      margin-left: 256px;
+      margin-left: 172px;
     }
   }
   &::after {
@@ -35,5 +37,5 @@ export const Culinaria = styled.h2`
 
 export const Título = styled.h2`
   font-weight: 900;
-  padding-top: 144px;
+  padding: 144px 0 8px;
 `

@@ -3,12 +3,17 @@ import { colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 export const Card = styled.div`
-  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 304px;
+  height: 100%;
   background-color: ${colors.salmon};
   color: ${colors.vanila};
   img {
-    max-height: 216px;
+    max-height: 168px;
     width: 100%;
+    height: 100%;
     margin-bottom: 8px;
   }
 `
