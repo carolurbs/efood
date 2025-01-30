@@ -2,26 +2,20 @@ import Banner from '../../components/Banner'
 import Header from '../../components/Header'
 import ProductsList from '../../components/ProductsList'
 import Footer from '../../components/Footer'
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Restaurants } from '../Home'
+import { useGetMenuQuery } from '../../services/api'
 const Profile = () => {
-  const [local, setLocals] = useState<Restaurants>()
-
   const { id } = useParams()
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`).then(
-      (res) => res.json().then((res) => setLocals(res))
-    )
-  }, [id])
-  if (!local) {
+  const { data: locals } = useGetMenuQuery(id!)
+
+  if (!locals) {
     return <h3>Carregando</h3>
   }
   return (
     <>
       <Header />
-      <Banner restaurant={local} />
-      <ProductsList dishes={local.cardapio} />
+      <Banner restaurant={locals} />
+      <ProductsList dishes={locals.cardapio} />
       <Footer />
     </>
   )

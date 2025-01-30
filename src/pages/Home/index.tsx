@@ -1,7 +1,7 @@
 import Hero from '../../components/Hero'
 import RestaurantsList from '../../components/RestaurantsList'
 import Footer from '../../components/Footer'
-import { useEffect, useState } from 'react'
+import { useGetLocalsQuery } from '../../services/api'
 export interface MenuItem {
   foto: string
   preco: number
@@ -22,19 +22,17 @@ export type Restaurants = {
   cardapio: MenuItem[]
 }
 const Home = () => {
-  const [locals, setLocals] = useState([])
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes').then(
-      (res) => res.json().then((res) => setLocals(res))
+  const { data: locals } = useGetLocalsQuery()
+  if (locals) {
+    return (
+      <>
+        <Hero />
+        <RestaurantsList restaurants={locals} />
+        <Footer />
+      </>
     )
-  }, [])
-  return (
-    <>
-      <Hero />
-      <RestaurantsList restaurants={locals} />
-      <Footer />
-    </>
-  )
+  }
+  return <h4>Carregando...</h4>
 }
 
 export default Home
