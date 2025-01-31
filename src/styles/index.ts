@@ -5,6 +5,10 @@ export const colors = {
   white: '#fff',
   vanila: '#FFEBD9'
 }
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px'
+}
 const EstiloGlobal = createGlobalStyle`
 
 *{
@@ -23,6 +27,9 @@ color: ${colors.salmon};
 max-width: 2024px;
 width: 100%
 margin: 0 auto;
+@media(max-width:${breakpoints.desktop}){
+max-width:80%;
+}
 }
 }
 `

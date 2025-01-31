@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../styles'
 
 export const FooterBar = styled.footer`
-  width: 100%;
+  width: 100vw;
   height: 296px;
   background-color: ${colors.vanila};
   display: flex;

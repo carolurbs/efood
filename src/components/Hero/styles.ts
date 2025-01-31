@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HeroBar = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 384px;
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../styles'
 
 export const HeaderBar = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 184px;
   background-size: cover;
   background-repeat: no-repeat;
