@@ -4,6 +4,7 @@ import EstiloGlobal from './styles'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import { store } from './store'
+import Cart from './components/Cart'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -29,6 +30,7 @@ function App() {
       <div className="container">
         <RouterProvider router={routes} />
       </div>
+      <Cart />
     </Provider>
   )
 }
