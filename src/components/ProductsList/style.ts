@@ -12,6 +12,7 @@ export const List = styled.ul`
   gap: 16px;
 `
 export const Modal = styled.div`
+  z-index: 1;
   position: fixed;
   display: none;
   flex-direction: column;
@@ -39,6 +40,7 @@ export const ModalContainer = styled.div`
     background-color: ${colors.salmon};
     color: ${colors.white};
     width: 1024px;
+    margin-right:172px;
     header{
     display: flex;
     justify-content: end;
@@ -56,6 +58,9 @@ export const ModalContent = styled.div`
     color: ${colors.salmon};
     border: none;
   }
+    h4{
+    font-size:18px;
+    }
   p {
     margin: 24px 0;
   }

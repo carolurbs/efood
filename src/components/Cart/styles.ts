@@ -8,6 +8,7 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 `
 export const CartContainer = styled.div`
   position: fixed;
@@ -15,9 +16,12 @@ export const CartContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   z-index: 1;
+  &.visible {
+    display: flex;
+  }
 `
 export const SideBar = styled.aside`
   background-color: ${colors.salmon};
@@ -42,9 +46,11 @@ export const Infos = styled.ul`
   margin: 40px 0 16px;
 `
 export const CartItem = styled.li`
+  position: relative;
   display: flex;
   background-color: ${colors.cream};
   padding: 12px 8px;
+  width: 344px;
   gap: 8px;
   margin-bottom: 16px;
   img {
@@ -53,16 +59,22 @@ export const CartItem = styled.li`
     object-fit: cover;
   }
   .icon {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 64px;
+    position: absolute;
+    top: 64px;
+    left: 320px;
+    backgrond-color: transparent;
+    border: none;
     height: 16px;
     width: 16px;
+    img {
+      height: 16px;
+      width: 16px;
+    }
   }
   h3 {
     font-size: 18px;
     font-weight: 900;
-    margin: 0 108px 16px 0;
+    margin-bottom: 16px;
     line-height: 21px;
   }
   span {

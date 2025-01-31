@@ -1,23 +1,26 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Product from '../Product'
 import * as S from './style'
 import close from '../../assets/close 1.png'
 import Button from '../Button'
 import { MenuItem } from '../../pages/Home'
+import { add, open } from '../../store/reducers/cart'
 export type Props = {
   dishes: MenuItem[]
 }
 export type ModalState = {
   isVisible: boolean
 }
+export const formatPrice = (preco?: number) => {
+  if (preco === undefined) return 'R$ 0,00'
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
 const ProductsList = ({ dishes }: Props) => {
-  const formatPrice = (preco?: number) => {
-    if (preco === undefined) return 'R$ 0,00'
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
-  }
+  const dispatch = useDispatch()
   const [modal, setModal] = useState<ModalState>()
   const [selectedDish, setSelectedDish] = useState<MenuItem>()
   const openModal = (dishes: MenuItem) => {
@@ -31,6 +34,13 @@ const ProductsList = ({ dishes }: Props) => {
     setModal({
       isVisible: false
     })
+  }
+  const addToCart = () => {
+    if (selectedDish) {
+      dispatch(add(selectedDish))
+      dispatch(open())
+      closeModal()
+    }
   }
   return (
     <S.Container>
@@ -67,7 +77,7 @@ const ProductsList = ({ dishes }: Props) => {
               </h4>
               <p>{selectedDish?.descricao}</p>
               <p>Serve: de {selectedDish?.porcao}</p>
-              <Button type={'button'} title={''}>
+              <Button type={'button'} title={''} onClick={addToCart}>
                 {`Adicionar ao carrinho - ${formatPrice(selectedDish?.preco)}`}
               </Button>
             </div>

@@ -21,8 +21,10 @@ export const Items = styled.li`
   margin-right: 192px;
   a {
     color: ${colors.salmon};
+    cursor:pointer;
     img{
     display:flex;
     margin-left:144px;
     }
+
 `
