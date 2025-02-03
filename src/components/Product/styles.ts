@@ -11,7 +11,7 @@ export const Card = styled.div`
   background-color: ${colors.salmon};
   color: ${colors.vanila};
   img {
-    max-height: 168px;
+    max-height: 148px;
     width: 100%;
     height: 100%;
     margin-bottom: 8px;

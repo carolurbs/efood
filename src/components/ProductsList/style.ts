@@ -5,12 +5,21 @@ import { ButtonContainer } from '../Button/styles'
 export const Container = styled.div`
   width: 100%;
   padding: 64px 172px 120px;
+  @media (max-width: ${breakpoints.desktop}) {
+    padding: 120px;
+  }
+  @media (max-width: ${breakpoints.desktop}) {
+    padding: 80px;
+  }
 `
 export const List = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
   @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: ${breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
 `

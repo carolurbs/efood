@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Imagem = styled.div`
   background-size: 100vw;
@@ -17,6 +17,14 @@ export const Imagem = styled.div`
       font-size: 32px;
       line-height: 40px;
       margin-left: 172px;
+      @media (max-width: ${breakpoints.desktop}) {
+        margin-left: 120px;
+      }
+      @media (max-width: ${breakpoints.tablet}) {
+        font-size: 24px;
+        line-height: 24px;
+        margin-left: 80px;
+      }
     }
   }
   &::after {
