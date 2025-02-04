@@ -8,7 +8,7 @@ export const Container = styled.div`
   @media (max-width: ${breakpoints.desktop}) {
     padding: 120px;
   }
-  @media (max-width: ${breakpoints.desktop}) {
+  @media (max-width: ${breakpoints.tablet}) {
     padding: 80px;
   }
 `
@@ -80,6 +80,9 @@ export const ModalContent = styled.div`
   font-size:14px;
   }
   @media (max-width: ${breakpoints.tablet}){
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap:8px;
   padding:16px;
   font-size: 12px;
@@ -101,12 +104,9 @@ export const ModalContent = styled.div`
     width: 280px;
     object-fit: cover;
     @media (max-width: ${breakpoints.desktop}){
-    height:180px;
-    width:180px;
+    height:200px;
+    width:200px;
 
   }
-  @media (max-width: ${breakpoints.tablet}){
-    height:120px;
-    width:120px;
-  }
+
 `
