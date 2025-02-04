@@ -23,7 +23,7 @@ export const Imagem = styled.div`
       @media (max-width: ${breakpoints.tablet}) {
         font-size: 24px;
         line-height: 24px;
-        margin-left: 80px;
+        margin-left: 40px;
       }
     }
   }

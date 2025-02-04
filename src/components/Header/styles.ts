@@ -20,7 +20,7 @@ export const Links = styled.ul`
     padding: 80px 120px;
   }
   @media (max-width: ${breakpoints.tablet}) {
-    padding: 80px;
+    padding: 80px 40px;
     font-size: 12px;
     line-height: 12px;
   }
@@ -44,7 +44,7 @@ export const Items = styled.li`
   }
   @media (max-width: ${breakpoints.tablet}){
   margin-left: 16px;
-    max-width:80px;
+  max-width:80px;
 
   }
     }
