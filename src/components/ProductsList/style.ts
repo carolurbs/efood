@@ -59,7 +59,7 @@ export const ModalContainer = styled.div`
     margin-right: 120px;
   }
   @media (max-width: ${breakpoints.tablet}){
-  width: 480px;
+  width: 320px;
   margin-right: 80px;
   }
     header{
@@ -106,7 +106,7 @@ export const ModalContent = styled.div`
 
   }
   @media (max-width: ${breakpoints.tablet}){
-    height:140px;
-    width:140px;
+    height:96px;
+    width:96px;
   }
 `
