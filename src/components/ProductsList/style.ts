@@ -106,7 +106,7 @@ export const ModalContent = styled.div`
 
   }
   @media (max-width: ${breakpoints.tablet}){
-    height:96px;
-    width:96px;
+    height:120px;
+    width:120px;
   }
 `
