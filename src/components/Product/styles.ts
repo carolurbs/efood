@@ -10,13 +10,16 @@ export const Card = styled.div`
   height: 100%;
   background-color: ${colors.salmon};
   color: ${colors.vanila};
+  @media (max-width: ${breakpoints.tablet}) {
+    max-height: 360px;
+  }
   img {
     max-height: 148px;
     width: 100%;
     height: 100%;
     margin-bottom: 8px;
     @media (max-width: ${breakpoints.tablet}) {
-      max-height: 132px;
+      max-height: 100px;
     }
   }
 `
