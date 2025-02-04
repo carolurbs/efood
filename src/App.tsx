@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 import { store } from './store'
 import Cart from './components/Cart'
+import Address from './components/Address'
 const routes = createBrowserRouter([
   {
     path: '/',
