@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
-export const AddressContainer = styled.div`
+export const PaymentContainer = styled.div`
   ${ButtonContainer} {
     background-color: ${colors.vanila};
     color: ${colors.salmon};
@@ -40,8 +40,14 @@ export const InputGroup = styled.div`
     width: 344px;
     padding: 8px;
   }
-  .short {
+  .long {
+    width: 228px;
+  }
+  .medium {
     width: 154px;
+  }
+  .short {
+    width: 88px;
   }
 `
 export const GroupContainer = styled.div`
