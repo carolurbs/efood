@@ -18,7 +18,7 @@ export const AddressContainer = styled.div`
     margin-bottom: 16px;
   }
 `
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   margin-bottom: 24px;
 `
 export const InputGroup = styled.div`
