@@ -16,16 +16,38 @@ const Payment = ({ Back, Next, price }: Props) => {
       expireMonth: '',
       expireYear: ''
     },
-    validationSchema: {
+    validationSchema: Yup.object({
       fullName: Yup.string()
         .min(5, 'O nome precisa ter pelo menos cinco caracteres')
         .required('O campo é obrigatório'),
-      cardNumber: Yup.number
-    },
+      cardNumber: Yup.string()
+        .min(13, 'Número inválido')
+        .max(20, 'Número inválido')
+        .required('O campo é obrigatório'),
+      cardCode: Yup.string()
+        .min(3, 'Número inválido')
+        .max(3, 'Número inválido')
+        .required('O campo é obrigatório'),
+      expireMonth: Yup.string()
+        .min(2, 'Data inválida')
+        .max(2, 'Data inválida')
+        .required('O campo é obrigatório'),
+      expireYear: Yup.string()
+        .min(2, 'Data inválida')
+        .max(4, 'Data inválida')
+        .required('O campo é obrigatório')
+    }),
     onSubmit: (values) => {
       console.log(values)
     }
   })
+
+  const getErrorMessage = (fieldName: string, message?: string) => {
+    const isChanged = fieldName in formPayment.touched
+    const isInvalid = fieldName in formPayment.errors
+    if (isChanged && isInvalid) return message
+    return ''
+  }
   return (
     <S.PaymentContainer>
       <h3>Pagamento - Valor a pagar {price}</h3>
@@ -40,6 +62,9 @@ const Payment = ({ Back, Next, price }: Props) => {
             onChange={formPayment.handleChange}
             onBlur={formPayment.handleBlur}
           />
+          <small>
+            {getErrorMessage('fullName', formPayment.errors.fullName)}
+          </small>
         </S.InputGroup>
         <S.GroupContainer>
           <S.InputGroup>
@@ -52,8 +77,10 @@ const Payment = ({ Back, Next, price }: Props) => {
               value={formPayment.values.cardNumber}
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
-              required
             />
+            <small>
+              {getErrorMessage('cardNumber', formPayment.errors.cardNumber)}
+            </small>
           </S.InputGroup>
           <S.InputGroup>
             <label htmlFor="cardCode">CVV</label>
@@ -65,8 +92,10 @@ const Payment = ({ Back, Next, price }: Props) => {
               value={formPayment.values.cardCode}
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
-              required
             />
+            <small>
+              {getErrorMessage('cardCode', formPayment.errors.cardCode)}
+            </small>
           </S.InputGroup>
         </S.GroupContainer>
         <S.GroupContainer>
@@ -80,8 +109,10 @@ const Payment = ({ Back, Next, price }: Props) => {
               value={formPayment.values.expireMonth}
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
-              required
             />
+            <small>
+              {getErrorMessage('expireMonth', formPayment.errors.expireMonth)}
+            </small>
           </S.InputGroup>
           <S.InputGroup>
             <label htmlFor="expireYear">Número</label>
@@ -93,8 +124,10 @@ const Payment = ({ Back, Next, price }: Props) => {
               value={formPayment.values.expireYear}
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
-              required
             />
+            <small>
+              {getErrorMessage('expireYear', formPayment.errors.expireYear)}
+            </small>
           </S.InputGroup>
         </S.GroupContainer>
       </S.FormContainer>

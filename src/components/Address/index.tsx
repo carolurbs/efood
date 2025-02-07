@@ -16,7 +16,7 @@ const Address = ({ Back, Next }: Props) => {
       addresssNumber: '',
       apartment: ''
     },
-    validationSchema: {
+    validationSchema: Yup.object({
       fullName: Yup.string()
         .min(5, 'O nome precisa ter pelo menos cinco caracteres')
         .required('O campo é obrigatório'),
@@ -32,11 +32,17 @@ const Address = ({ Back, Next }: Props) => {
         .required('Campo Obrigatório'),
       addressNumber: Yup.string().required('Campo Obrigatório'),
       apartment: Yup.string()
-    },
+    }),
     onSubmit: (values) => {
       console.log(values)
     }
   })
+  const getErrorMessage = (fieldName: string, message?: string) => {
+    const isChanged = fieldName in formAddress.touched
+    const isInvalid = fieldName in formAddress.errors
+    if (isChanged && isInvalid) return message
+    return ''
+  }
   return (
     <S.AddressContainer>
       <h3>Entrega</h3>
@@ -51,6 +57,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
+          <small>
+            {getErrorMessage('fullName', formAddress.errors.fullName)}
+          </small>
         </S.InputGroup>
         <S.InputGroup>
           <label htmlFor="address">Endereço</label>
@@ -62,6 +71,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
+          <small>
+            {getErrorMessage('address', formAddress.errors.address)}
+          </small>
         </S.InputGroup>
         <S.InputGroup>
           <label htmlFor="city">Cidade</label>
@@ -73,6 +85,7 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
+          <small>{getErrorMessage('city', formAddress.errors.city)}</small>
         </S.InputGroup>
         <S.GroupContainer>
           <S.InputGroup>
@@ -86,6 +99,7 @@ const Address = ({ Back, Next }: Props) => {
               onChange={formAddress.handleChange}
               onBlur={formAddress.handleBlur}
             />
+            <small>{getErrorMessage('cep', formAddress.errors.cep)}</small>
           </S.InputGroup>
           <S.InputGroup>
             <label htmlFor="addressNumber">Número</label>
@@ -98,6 +112,12 @@ const Address = ({ Back, Next }: Props) => {
               onChange={formAddress.handleChange}
               onBlur={formAddress.handleBlur}
             />
+            <small>
+              {getErrorMessage(
+                'addressNumber',
+                formAddress.errors.addresssNumber
+              )}
+            </small>
           </S.InputGroup>
         </S.GroupContainer>
         <S.InputGroup>
@@ -110,6 +130,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
+          <small>
+            {getErrorMessage('apartment', formAddress.errors.apartment)}
+          </small>
         </S.InputGroup>
       </S.FormContainer>
       <Button
