@@ -49,3 +49,9 @@ export const GroupContainer = styled.div`
   flex-direction: row;
   gap: 32px;
 `
+export const Small = styled.div`
+  color: ${colors.vanila};
+  font-size: 12px;
+  font-weight: 600;
+  margin: 2px 0 8px;
+`

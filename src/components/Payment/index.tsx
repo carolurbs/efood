@@ -2,12 +2,14 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Button from '../Button'
 import * as S from './style'
+import { usePurchaseMutation } from '../../services/api'
 export type Props = {
   price: string
   Back: () => void
   Next: () => void
 }
 const Payment = ({ Back, Next, price }: Props) => {
+  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
   const formPayment = useFormik({
     initialValues: {
       fullName: '',
@@ -38,7 +40,21 @@ const Payment = ({ Back, Next, price }: Props) => {
         .required('O campo é obrigatório')
     }),
     onSubmit: (values) => {
-      console.log(values)
+      purchase({
+        payment: {
+          card: {
+            name: values.fullName,
+            number: values.cardNumber,
+            code: Number(values.cardCode),
+            expires: {
+              month: Number(values.expireMonth),
+              year: Number(values.expireYear)
+            }
+          }
+        },
+        products: [],
+        delivery: []
+      })
     }
   })
 
@@ -62,9 +78,9 @@ const Payment = ({ Back, Next, price }: Props) => {
             onChange={formPayment.handleChange}
             onBlur={formPayment.handleBlur}
           />
-          <small>
+          <S.Small>
             {getErrorMessage('fullName', formPayment.errors.fullName)}
-          </small>
+          </S.Small>
         </S.InputGroup>
         <S.GroupContainer>
           <S.InputGroup>
@@ -78,9 +94,9 @@ const Payment = ({ Back, Next, price }: Props) => {
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
             />
-            <small>
+            <S.Small>
               {getErrorMessage('cardNumber', formPayment.errors.cardNumber)}
-            </small>
+            </S.Small>
           </S.InputGroup>
           <S.InputGroup>
             <label htmlFor="cardCode">CVV</label>
@@ -93,9 +109,9 @@ const Payment = ({ Back, Next, price }: Props) => {
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
             />
-            <small>
+            <S.Small>
               {getErrorMessage('cardCode', formPayment.errors.cardCode)}
-            </small>
+            </S.Small>
           </S.InputGroup>
         </S.GroupContainer>
         <S.GroupContainer>
@@ -110,12 +126,12 @@ const Payment = ({ Back, Next, price }: Props) => {
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
             />
-            <small>
+            <S.Small>
               {getErrorMessage('expireMonth', formPayment.errors.expireMonth)}
-            </small>
+            </S.Small>
           </S.InputGroup>
           <S.InputGroup>
-            <label htmlFor="expireYear">Número</label>
+            <label htmlFor="expireYear">Ano de Vencimento</label>
             <input
               className="medium"
               id="expireYear"
@@ -125,9 +141,9 @@ const Payment = ({ Back, Next, price }: Props) => {
               onChange={formPayment.handleChange}
               onBlur={formPayment.handleBlur}
             />
-            <small>
+            <S.Small>
               {getErrorMessage('expireYear', formPayment.errors.expireYear)}
-            </small>
+            </S.Small>
           </S.InputGroup>
         </S.GroupContainer>
       </S.FormContainer>

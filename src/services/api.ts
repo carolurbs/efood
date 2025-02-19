@@ -5,18 +5,19 @@ type Product = {
   id: number
   price: number
 }
+type Address = {
+  receiver: string
+  address: {
+    description: string
+    city: string
+    zipCode: string
+    number: number
+    complement?: string
+  }
+}
 type PurchasePayload = {
   products: Product[]
-  delivery: {
-    receiver: string
-    address: {
-      description: string
-      city: string
-      zipCode: string
-      number: number
-      complement?: string
-    }
-  }
+  delivery: Address[]
   payment: {
     card: {
       name: string
@@ -46,8 +47,20 @@ const api = createApi({
         method: 'POST',
         body
       })
+    }),
+    location: builder.mutation<any, Address>({
+      query: (body) => ({
+        url: 'checkout',
+        method: 'POST',
+        body
+      })
     })
   })
 })
-export const { useGetLocalsQuery, useGetMenuQuery, usePurchaseMutation } = api
+export const {
+  useGetLocalsQuery,
+  useGetMenuQuery,
+  usePurchaseMutation,
+  useLocationMutation
+} = api
 export default api

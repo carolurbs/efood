@@ -2,11 +2,13 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Button from '../Button'
 import * as S from './style'
+import { useLocationMutation } from '../../services/api'
 export type Props = {
   Back: () => void
   Next: () => void
 }
 const Address = ({ Back, Next }: Props) => {
+  const [location, { isLoading, isError, data }] = useLocationMutation()
   const formAddress = useFormik({
     initialValues: {
       fullName: '',
@@ -34,7 +36,16 @@ const Address = ({ Back, Next }: Props) => {
       apartment: Yup.string()
     }),
     onSubmit: (values) => {
-      console.log(values)
+      location({
+        receiver: values.fullName,
+        address: {
+          description: values.address,
+          city: values.city,
+          zipCode: values.cep,
+          number: Number(values.addresssNumber),
+          complement: values.apartment
+        }
+      })
     }
   })
   const getErrorMessage = (fieldName: string, message?: string) => {
@@ -57,9 +68,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
-          <small>
+          <S.Small>
             {getErrorMessage('fullName', formAddress.errors.fullName)}
-          </small>
+          </S.Small>
         </S.InputGroup>
         <S.InputGroup>
           <label htmlFor="address">Endereço</label>
@@ -71,9 +82,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
-          <small>
+          <S.Small>
             {getErrorMessage('address', formAddress.errors.address)}
-          </small>
+          </S.Small>
         </S.InputGroup>
         <S.InputGroup>
           <label htmlFor="city">Cidade</label>
@@ -85,7 +96,7 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
-          <small>{getErrorMessage('city', formAddress.errors.city)}</small>
+          <S.Small>{getErrorMessage('city', formAddress.errors.city)}</S.Small>
         </S.InputGroup>
         <S.GroupContainer>
           <S.InputGroup>
@@ -99,7 +110,7 @@ const Address = ({ Back, Next }: Props) => {
               onChange={formAddress.handleChange}
               onBlur={formAddress.handleBlur}
             />
-            <small>{getErrorMessage('cep', formAddress.errors.cep)}</small>
+            <S.Small>{getErrorMessage('cep', formAddress.errors.cep)}</S.Small>
           </S.InputGroup>
           <S.InputGroup>
             <label htmlFor="addressNumber">Número</label>
@@ -112,12 +123,12 @@ const Address = ({ Back, Next }: Props) => {
               onChange={formAddress.handleChange}
               onBlur={formAddress.handleBlur}
             />
-            <small>
+            <S.Small>
               {getErrorMessage(
                 'addressNumber',
                 formAddress.errors.addresssNumber
               )}
-            </small>
+            </S.Small>
           </S.InputGroup>
         </S.GroupContainer>
         <S.InputGroup>
@@ -130,9 +141,9 @@ const Address = ({ Back, Next }: Props) => {
             onChange={formAddress.handleChange}
             onBlur={formAddress.handleBlur}
           />
-          <small>
+          <S.Small>
             {getErrorMessage('apartment', formAddress.errors.apartment)}
-          </small>
+          </S.Small>
         </S.InputGroup>
       </S.FormContainer>
       <Button
