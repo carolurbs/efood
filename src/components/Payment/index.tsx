@@ -5,10 +5,8 @@ import * as S from './style'
 import { usePurchaseMutation } from '../../services/api'
 export type Props = {
   price: string
-  Back: () => void
-  Next: () => void
 }
-const Payment = ({ Back, Next, price }: Props) => {
+const Payment = ({ price }: Props) => {
   const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
   const formPayment = useFormik({
     initialValues: {
@@ -147,14 +145,10 @@ const Payment = ({ Back, Next, price }: Props) => {
           </S.InputGroup>
         </S.GroupContainer>
       </S.FormContainer>
-      <Button type={'button'} title={'Finalizar pagamento'} onClick={Next}>
+      <Button type={'button'} title={'Finalizar pagamento'}>
         Finalizar pagamento
       </Button>
-      <Button
-        type={'button'}
-        title={'Voltar para a edição de endereço'}
-        onClick={Back}
-      >
+      <Button type={'button'} title={'Voltar para a edição de endereço'}>
         Voltar para a edição de endereço
       </Button>
     </S.PaymentContainer>

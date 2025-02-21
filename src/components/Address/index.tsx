@@ -3,12 +3,10 @@ import * as Yup from 'yup'
 import Button from '../Button'
 import * as S from './style'
 import { useLocationMutation } from '../../services/api'
-export type Props = {
-  Back: () => void
-  Next: () => void
-}
-const Address = ({ Back, Next }: Props) => {
-  const [location, { isLoading, isError, data }] = useLocationMutation()
+
+const Address = () => {
+  const [location, { isLoading, isError, isSuccess, data }] =
+    useLocationMutation()
   const formAddress = useFormik({
     initialValues: {
       fullName: '',
@@ -146,14 +144,10 @@ const Address = ({ Back, Next }: Props) => {
           </S.Small>
         </S.InputGroup>
       </S.FormContainer>
-      <Button
-        type={'button'}
-        title={'Continuar com o pagamento'}
-        onClick={Next}
-      >
+      <Button type={'button'} title={'Continuar com o pagamento'}>
         Continuar com o pagamento
       </Button>
-      <Button type={'button'} title={'Voltar para o carrinho'} onClick={Back}>
+      <Button type={'button'} title={'Voltar para o carrinho'}>
         Voltar para o carrinho
       </Button>
     </S.AddressContainer>

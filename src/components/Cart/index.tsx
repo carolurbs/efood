@@ -5,10 +5,8 @@ import { formatPrice } from '../ProductsList'
 import Button from '../Button'
 import * as S from './styles'
 import trash from '../../assets/lixeira.svg'
-export type Props = {
-  Next: () => void
-}
-const Cart = ({ Next }: Props) => {
+
+const Cart = () => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
@@ -41,7 +39,7 @@ const Cart = ({ Next }: Props) => {
         <li>Valor Total</li>
         <li>{formatPrice(getTotalPrice())}</li>
       </S.Infos>
-      <Button type={'button'} title={'Continuar com a entrega'} onClick={Next}>
+      <Button type={'button'} title={'Continuar com a entrega'}>
         Continuar com a entrega
       </Button>
     </S.CartContainer>
