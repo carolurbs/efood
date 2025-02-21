@@ -6,13 +6,13 @@ import * as S from './style'
 const SideBar = () => {
   const { isOpen } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
-  const closeCart = () => {
+  const closeBar = () => {
     dispatch(close())
   }
 
   return (
     <S.SideBarContainer className={isOpen ? 'visible' : ''}>
-      <S.Overlay onClick={closeCart} />
+      <S.Overlay onClick={closeBar} />
       <S.SideBar>
         <Cart />
       </S.SideBar>
