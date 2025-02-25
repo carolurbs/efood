@@ -318,7 +318,7 @@ const Checkout = ({ Exit, price }: Props) => {
     case 2:
       return (
         <S.CheckoutContainer>
-          <h3>Pedido realizado - ORDER_ID </h3>
+          <h3>Pedido realizado - {data.orderId} </h3>
           <p>
             Estamos felizes em informar que seu pedido já está em processo de
             preparação e, em breve, será entregue no endereço fornecido.
