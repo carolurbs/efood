@@ -43,6 +43,9 @@ export const InputGroup = styled.div`
     height: 32px;
     width: 344px;
     padding: 8px;
+    &.error {
+      border: 1px solid red;
+    }
   }
   .long {
     width: 228px;
@@ -58,10 +61,4 @@ export const GroupContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
-`
-export const Small = styled.div`
-  color: ${colors.vanila};
-  font-size: 12px;
-  font-weight: 600;
-  margin: 2px 0 8px;
 `

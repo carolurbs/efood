@@ -102,11 +102,11 @@ const Checkout = ({ Exit, price }: Props) => {
       })
     }
   })
-  const getErrorMessage = (fieldName: string, message?: string) => {
-    const isChanged = fieldName in form.touched
+  const getErrorMessage = (fieldName: string) => {
+    const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
-    if (isChanged && isInvalid) return message
-    return ''
+    const hasError = isTouched && isInvalid
+    return hasError
   }
   switch (step) {
     case 0:
@@ -117,6 +117,7 @@ const Checkout = ({ Exit, price }: Props) => {
             <S.InputGroup>
               <label htmlFor="fullName">Quem irá receber</label>
               <input
+                className={getErrorMessage('fullName') ? 'error' : ''}
                 id="fullName"
                 type="text"
                 name="fullName"
@@ -124,13 +125,11 @@ const Checkout = ({ Exit, price }: Props) => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
-              <S.Small>
-                {getErrorMessage('fullName', form.errors.fullName)}
-              </S.Small>
             </S.InputGroup>
             <S.InputGroup>
               <label htmlFor="address">Endereço</label>
               <input
+                className={getErrorMessage('address') ? 'error' : ''}
                 id="address"
                 type="text"
                 name="address"
@@ -138,13 +137,11 @@ const Checkout = ({ Exit, price }: Props) => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
-              <S.Small>
-                {getErrorMessage('address', form.errors.address)}
-              </S.Small>
             </S.InputGroup>
             <S.InputGroup>
               <label htmlFor="city">Cidade</label>
               <input
+                className={getErrorMessage('city') ? 'error' : ''}
                 id="city"
                 type="text"
                 name="city"
@@ -152,13 +149,12 @@ const Checkout = ({ Exit, price }: Props) => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
-              <S.Small>{getErrorMessage('city', form.errors.city)}</S.Small>
             </S.InputGroup>
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="cep">CEP</label>
                 <input
-                  className="medium"
+                  className={getErrorMessage('cep') ? 'error medium' : 'medium'}
                   id="cep"
                   type="number"
                   name="cep"
@@ -166,12 +162,13 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>{getErrorMessage('cep', form.errors.cep)}</S.Small>
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="addressNumber">Número</label>
                 <input
-                  className="medium"
+                  className={
+                    getErrorMessage('addressNumber') ? 'error medium' : 'medium'
+                  }
                   id="addressNumber"
                   type="number"
                   name="addressNumber"
@@ -179,14 +176,12 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>
-                  {getErrorMessage('addressNumber', form.errors.addresssNumber)}
-                </S.Small>
               </S.InputGroup>
             </S.GroupContainer>
             <S.InputGroup>
               <label htmlFor="apartment">Complemento (opicional)</label>
               <input
+                className={getErrorMessage('apartment') ? 'error' : ''}
                 id="apartment"
                 type="number"
                 name="apartment"
@@ -194,9 +189,6 @@ const Checkout = ({ Exit, price }: Props) => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
-              <S.Small>
-                {getErrorMessage('apartment', form.errors.apartment)}
-              </S.Small>
             </S.InputGroup>
           </S.FormContainer>
           <Button
@@ -223,6 +215,7 @@ const Checkout = ({ Exit, price }: Props) => {
             <S.InputGroup>
               <label htmlFor="cardOwner">Nome no cartão</label>
               <input
+                className={getErrorMessage('cardOwner') ? 'error long' : 'long'}
                 id="cardOwner"
                 type="text"
                 name="cardOwner"
@@ -230,15 +223,14 @@ const Checkout = ({ Exit, price }: Props) => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
-              <S.Small>
-                {getErrorMessage('fullName', form.errors.cardOwner)}
-              </S.Small>
             </S.InputGroup>
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="cardNumber">Número do Cartão</label>
                 <input
-                  className="long"
+                  className={
+                    getErrorMessage('cardNumber') ? 'error long' : 'long'
+                  }
                   id="cardNumber"
                   type="number"
                   name="cardNumber"
@@ -246,14 +238,13 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>
-                  {getErrorMessage('cardNumber', form.errors.cardNumber)}
-                </S.Small>
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="cardCode">CVV</label>
                 <input
-                  className="short"
+                  className={
+                    getErrorMessage('cardCode') ? 'error short' : 'short'
+                  }
                   id="cardCode"
                   type="number"
                   name="cardCode"
@@ -261,16 +252,15 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>
-                  {getErrorMessage('cardCode', form.errors.cardCode)}
-                </S.Small>
               </S.InputGroup>
             </S.GroupContainer>
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="expireMonth">Mês de Vencimento</label>
                 <input
-                  className="medium"
+                  className={
+                    getErrorMessage('expireMonth') ? 'error medium' : 'medium'
+                  }
                   id="expireMonth"
                   type="number"
                   name="expireMonth"
@@ -278,14 +268,13 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>
-                  {getErrorMessage('expireMonth', form.errors.expireMonth)}
-                </S.Small>
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="expireYear">Ano de Vencimento</label>
                 <input
-                  className="medium"
+                  className={
+                    getErrorMessage('expireYear') ? 'error medium' : 'medium'
+                  }
                   id="expireYear"
                   type="number"
                   name="expireYear"
@@ -293,9 +282,6 @@ const Checkout = ({ Exit, price }: Props) => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
-                <S.Small>
-                  {getErrorMessage('expireYear', form.errors.expireYear)}
-                </S.Small>
               </S.InputGroup>
             </S.GroupContainer>
           </S.FormContainer>
