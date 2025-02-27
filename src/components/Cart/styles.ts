@@ -9,6 +9,7 @@ export const CartContainer = styled.aside`
     border: none;
     width: 100%;
     display: block;
+    cursor: pointer;
   }
 `
 export const Infos = styled.ul`

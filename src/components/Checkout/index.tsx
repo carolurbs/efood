@@ -1,15 +1,17 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { usePurchaseMutation } from '../../services/api'
+import { useState } from 'react'
+import { formatPrice } from '../ProductsList'
 import Button from '../Button'
 import * as S from './style'
-import { useState } from 'react'
 
 export type Props = {
   Exit: () => void
   price: number
+  Cart: () => void
 }
-const Checkout = ({ Exit, price }: Props) => {
+const Checkout = ({ Exit, price, Cart }: Props) => {
   const [step, setStep] = useState(0)
   const [purchase, { isSuccess, data }] = usePurchaseMutation()
   const Advance = () => {
@@ -201,7 +203,7 @@ const Checkout = ({ Exit, price }: Props) => {
           <Button
             type={'button'}
             title={'Voltar para o carrinho'}
-            onClick={Exit}
+            onClick={Cart}
           >
             Voltar para o carrinho
           </Button>
@@ -210,7 +212,7 @@ const Checkout = ({ Exit, price }: Props) => {
     case 1:
       return (
         <S.CheckoutContainer>
-          <h3>Pagamento - Valor a pagar ${price}</h3>
+          <h3>Pagamento - Valor a pagar ${formatPrice(price)}</h3>
           <S.FormContainer onSubmit={form.handleSubmit}>
             <S.InputGroup>
               <label htmlFor="cardOwner">Nome no cartão</label>
@@ -324,6 +326,104 @@ const Checkout = ({ Exit, price }: Props) => {
           </p>
           <Button type={'button'} title={'Concluir'} onClick={Exit}>
             Concluir
+          </Button>
+        </S.CheckoutContainer>
+      )
+    default:
+      return (
+        <S.CheckoutContainer>
+          <h3>Entrega</h3>
+          <S.FormContainer onSubmit={form.handleSubmit}>
+            <S.InputGroup>
+              <label htmlFor="fullName">Quem irá receber</label>
+              <input
+                className={getErrorMessage('fullName') ? 'error' : ''}
+                id="fullName"
+                type="text"
+                name="fullName"
+                value={form.values.fullName}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+              />
+            </S.InputGroup>
+            <S.InputGroup>
+              <label htmlFor="address">Endereço</label>
+              <input
+                className={getErrorMessage('address') ? 'error' : ''}
+                id="address"
+                type="text"
+                name="address"
+                value={form.values.address}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+              />
+            </S.InputGroup>
+            <S.InputGroup>
+              <label htmlFor="city">Cidade</label>
+              <input
+                className={getErrorMessage('city') ? 'error' : ''}
+                id="city"
+                type="text"
+                name="city"
+                value={form.values.city}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+              />
+            </S.InputGroup>
+            <S.GroupContainer>
+              <S.InputGroup>
+                <label htmlFor="cep">CEP</label>
+                <input
+                  className={getErrorMessage('cep') ? 'error medium' : 'medium'}
+                  id="cep"
+                  type="number"
+                  name="cep"
+                  value={form.values.cep}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                />
+              </S.InputGroup>
+              <S.InputGroup>
+                <label htmlFor="addressNumber">Número</label>
+                <input
+                  className={
+                    getErrorMessage('addressNumber') ? 'error medium' : 'medium'
+                  }
+                  id="addressNumber"
+                  type="number"
+                  name="addressNumber"
+                  value={form.values.addresssNumber}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                />
+              </S.InputGroup>
+            </S.GroupContainer>
+            <S.InputGroup>
+              <label htmlFor="apartment">Complemento (opicional)</label>
+              <input
+                className={getErrorMessage('apartment') ? 'error' : ''}
+                id="apartment"
+                type="number"
+                name="apartment"
+                value={form.values.apartment}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+              />
+            </S.InputGroup>
+          </S.FormContainer>
+          <Button
+            type={'button'}
+            title={'Continuar com o pagamento'}
+            onClick={CheckStatus}
+          >
+            Continuar com o pagamento
+          </Button>
+          <Button
+            type={'button'}
+            title={'Voltar para o carrinho'}
+            onClick={Exit}
+          >
+            Voltar para o carrinho
           </Button>
         </S.CheckoutContainer>
       )

@@ -5,20 +5,18 @@ import { formatPrice } from '../ProductsList'
 import Button from '../Button'
 import * as S from './styles'
 import trash from '../../assets/lixeira.svg'
-
-const Cart = () => {
+export type Props = {
+  totalPrice: number
+  Next: () => void
+}
+const Cart = ({ totalPrice, Next }: Props) => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
-
-  const getTotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.preco)
-    }, 0)
-  }
 
   const removeItem = (id: number) => {
     dispatch(remove(id))
   }
+
   return (
     <S.CartContainer>
       <ul>
@@ -37,9 +35,9 @@ const Cart = () => {
       </ul>
       <S.Infos>
         <li>Valor Total</li>
-        <li>{formatPrice(getTotalPrice())}</li>
+        <li>{formatPrice(totalPrice)}</li>
       </S.Infos>
-      <Button type={'button'} title={'Continuar com a entrega'}>
+      <Button type={'button'} title={'Continuar com a entrega'} onClick={Next}>
         Continuar com a entrega
       </Button>
     </S.CartContainer>
