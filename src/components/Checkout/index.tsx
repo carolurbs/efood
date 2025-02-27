@@ -13,15 +13,18 @@ export type Props = {
 }
 const Checkout = ({ Exit, price, Cart }: Props) => {
   const [step, setStep] = useState(0)
-  const [purchase, { isSuccess, data }] = usePurchaseMutation()
+  const [purchase, { isSuccess, isLoading, data }] = usePurchaseMutation()
   const Advance = () => {
     setStep((step) => step + 1)
   }
   const Back = () => {
     setStep((step) => step - 1)
   }
+  const Reset = () => {
+    setStep(0)
+  }
   const CheckStatus = () => {
-    if (isSuccess) Advance
+    if (isSuccess) Advance()
     else {
       alert('Desculpe, ocorreu um erro')
     }
@@ -32,7 +35,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
       address: '',
       city: '',
       cep: '',
-      addresssNumber: '',
+      addressNumber: '',
       apartment: '',
       cardOwner: '',
       cardNumber: '',
@@ -88,7 +91,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             description: values.address,
             city: values.city,
             zipCode: values.cep,
-            number: Number(values.addresssNumber),
+            number: Number(values.addressNumber),
             complement: values.apartment
           }
         },
@@ -177,7 +180,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   id="addressNumber"
                   type="number"
                   name="addressNumber"
-                  value={form.values.addresssNumber}
+                  value={form.values.addressNumber}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -200,15 +203,17 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             type={'button'}
             title={'Continuar com o pagamento'}
             onClick={CheckStatus}
+            disabled={isLoading}
           >
-            Continuar com o pagamento
+            {isLoading ? 'Processando' : 'Continuar com o pagamento'}
           </Button>
           <Button
             type={'button'}
             title={'Voltar para o carrinho'}
             onClick={Cart}
+            disabled={isLoading}
           >
-            Voltar para o carrinho
+            {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
           </Button>
         </S.CheckoutContainer>
       )
@@ -294,42 +299,66 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             type={'button'}
             title={'Finalizar pagamento'}
             onClick={CheckStatus}
+            disabled={isLoading}
           >
-            Finalizar pagamento
+            {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
           </Button>
           <Button
             type={'button'}
             title={'Voltar para a edição de endereço'}
             onClick={Back}
+            disabled={isLoading}
           >
-            Voltar para a edição de endereço
+            {isLoading ? 'Voltando...' : 'Voltar para a edição de endereço'}
           </Button>
         </S.CheckoutContainer>
       )
     case 2:
       return (
         <S.CheckoutContainer>
-          <h3>Pedido realizado - {data.orderId} </h3>
-          <p>
-            Estamos felizes em informar que seu pedido já está em processo de
-            preparação e, em breve, será entregue no endereço fornecido.
-          </p>
-          <p>
-            Gostaríamos de ressaltar que nossos entregadores não estão
-            autorizados a realizar cobranças extras.
-          </p>
-          <p>
-            Lembre-se da importância de higienizar as mãos após o recebimento do
-            pedido, garantindo assim sua segurança e bem-estar durante a
-            refeição.
-          </p>
-          <p>
-            Esperamos que desfrute de uma deliciosa e agradável experiência
-            gastronômica. Bom apetite!
-          </p>
-          <Button type={'button'} title={'Concluir'} onClick={Exit}>
-            Concluir
-          </Button>
+          {data ? (
+            <>
+              <h3>Pedido realizado - {data.orderId} </h3>
+              <p>
+                Estamos felizes em informar que seu pedido já está em processo
+                de preparação e, em breve, será entregue no endereço fornecido.
+              </p>
+              <p>
+                Gostaríamos de ressaltar que nossos entregadores não estão
+                autorizados a realizar cobranças extras.
+              </p>
+              <p>
+                Lembre-se da importância de higienizar as mãos após o
+                recebimento do pedido, garantindo assim sua segurança e
+                bem-estar durante a refeição.
+              </p>
+              <p>
+                Esperamos que desfrute de uma deliciosa e agradável experiência
+                gastronômica. Bom apetite!
+              </p>
+              <Button
+                type={'button'}
+                title={'Concluir'}
+                onClick={Exit}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Concluindo...' : 'Concluir'}
+              </Button>
+            </>
+          ) : (
+            <>
+              <p>Desculpe</p>
+              <p>Não foi possível concluir sua compra</p>
+              <Button
+                type={'button'}
+                title={'Voltar'}
+                onClick={Reset}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Voltando...' : 'Voltar para o início'}
+              </Button>
+            </>
+          )}
         </S.CheckoutContainer>
       )
     default:
@@ -395,7 +424,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   id="addressNumber"
                   type="number"
                   name="addressNumber"
-                  value={form.values.addresssNumber}
+                  value={form.values.addressNumber}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -418,15 +447,17 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             type={'button'}
             title={'Continuar com o pagamento'}
             onClick={CheckStatus}
+            disabled={isLoading}
           >
-            Continuar com o pagamento
+            {isLoading ? 'Processando' : 'Continuar com o pagamento'}
           </Button>
           <Button
             type={'button'}
             title={'Voltar para o carrinho'}
             onClick={Exit}
+            disabled={isLoading}
           >
-            Voltar para o carrinho
+            {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
           </Button>
         </S.CheckoutContainer>
       )

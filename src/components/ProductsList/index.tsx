@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { add, open } from '../../store/reducers/cart'
 import Product from '../Product'
-import * as S from './style'
-import close from '../../assets/close 1.png'
 import Button from '../Button'
 import { MenuItem } from '../../pages/Home'
-import { add, open } from '../../store/reducers/cart'
+import Loader from '../Loader'
+import * as S from './style'
+import { colors } from '../../styles'
+import close from '../../assets/close 1.png'
 export type Props = {
   dishes: MenuItem[]
+  isLoading: boolean
 }
 export type ModalState = {
   isVisible: boolean
@@ -19,7 +22,7 @@ export const formatPrice = (preco?: number) => {
     currency: 'BRL'
   }).format(preco)
 }
-const ProductsList = ({ dishes }: Props) => {
+const ProductsList = ({ dishes, isLoading }: Props) => {
   const dispatch = useDispatch()
   const [modal, setModal] = useState<ModalState>()
   const [selectedDish, setSelectedDish] = useState<MenuItem>()
@@ -41,6 +44,9 @@ const ProductsList = ({ dishes }: Props) => {
       dispatch(open())
       closeModal()
     }
+  }
+  if (isLoading) {
+    return <Loader color={colors.salmon} />
   }
   return (
     <S.Container>

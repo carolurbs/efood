@@ -1,7 +1,9 @@
+import { useGetLocalsQuery } from '../../services/api'
 import Hero from '../../components/Hero'
 import RestaurantsList from '../../components/RestaurantsList'
 import Footer from '../../components/Footer'
-import { useGetLocalsQuery } from '../../services/api'
+import Loader from '../../components/Loader'
+import { colors } from '../../styles'
 export interface MenuItem {
   foto: string
   preco: number
@@ -22,17 +24,21 @@ export type Restaurants = {
   cardapio: MenuItem[]
 }
 const Home = () => {
-  const { data: locals } = useGetLocalsQuery()
-  if (locals) {
-    return (
-      <>
-        <Hero />
-        <RestaurantsList restaurants={locals} />
-        <Footer />
-      </>
-    )
-  }
-  return <h4>Carregando...</h4>
+  const { data: locals, isLoading } = useGetLocalsQuery()
+
+  return (
+    <>
+      <Hero />
+      {locals ? (
+        <>
+          <RestaurantsList restaurants={locals} isLoading={isLoading} />
+        </>
+      ) : (
+        <Loader color={colors.salmon} />
+      )}
+      <Footer />
+    </>
+  )
 }
 
 export default Home

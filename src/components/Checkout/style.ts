@@ -11,6 +11,7 @@ export const CheckoutContainer = styled.div`
     width: 100%;
     display: block;
     margin-top: 24px;
+    cursor: pointer;
   }
   h3 {
     font-size: 16px;

@@ -4,8 +4,14 @@ import { useState } from 'react'
 import { close } from '../../store/reducers/cart'
 import Cart from '../Cart'
 import Checkout from '../Checkout'
+import Loader from '../Loader'
 import * as S from './style'
-const SideBar = () => {
+import { colors } from '../../styles'
+type Props = {
+  isLoading: boolean
+}
+
+const SideBar = ({ isLoading }: Props) => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
   const [step, setStep] = useState(0)
   const dispatch = useDispatch()
@@ -26,6 +32,9 @@ const SideBar = () => {
     return items.reduce((accumulator, currentValue) => {
       return (accumulator += currentValue.preco)
     }, 0)
+  }
+  if (isLoading) {
+    return <Loader color={colors.vanila} />
   }
   return (
     <S.SideBarContainer className={isOpen ? 'visible' : ''}>
