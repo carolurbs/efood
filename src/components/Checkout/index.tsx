@@ -54,7 +54,10 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
         .min(9, 'CEP inválido')
         .max(9, 'CEP inválido')
         .required('Campo Obrigatório'),
-      addressNumber: Yup.string().required('Campo Obrigatório'),
+      addressNumber: Yup.string()
+        .min(2, 'Número Inválido')
+        .max(2, 'Número Inválido')
+        .required('Campo Obrigatório'),
       apartment: Yup.string(),
       cardOwnerName: Yup.string()
         .min(5, 'O nome precisa ter pelo menos cinco caracteres')
