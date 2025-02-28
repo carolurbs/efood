@@ -11,6 +11,13 @@ export const CartContainer = styled.aside`
     display: block;
     cursor: pointer;
   }
+  .empty {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 22px;
+    color: ${colors.vanila};
+    text-align: center;
+  }
 `
 export const Infos = styled.ul`
   display: flex;

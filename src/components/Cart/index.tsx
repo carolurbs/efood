@@ -19,27 +19,37 @@ const Cart = ({ totalPrice, Next }: Props) => {
 
   return (
     <S.CartContainer>
-      <ul>
-        {items.map((item) => (
-          <S.CartItem key={item.id}>
-            <img src={item.foto} alt={item.nome} />
-            <div>
-              <h3>{item.nome}</h3>
-              <span>{formatPrice(item.preco)}</span>
-            </div>
-            <button className="icon" onClick={() => removeItem(item.id)}>
-              <img src={trash} />
-            </button>
-          </S.CartItem>
-        ))}
-      </ul>
-      <S.Infos>
-        <li>Valor Total</li>
-        <li>{formatPrice(totalPrice)}</li>
-      </S.Infos>
-      <Button type={'button'} title={'Continuar com a entrega'} onClick={Next}>
-        Continuar com a entrega
-      </Button>
+      {items.length > 0 ? (
+        <>
+          <ul>
+            {items.map((item) => (
+              <S.CartItem key={item.id}>
+                <img src={item.foto} alt={item.nome} />
+                <div>
+                  <h3>{item.nome}</h3>
+                  <span>{formatPrice(item.preco)}</span>
+                </div>
+                <button className="icon" onClick={() => removeItem(item.id)}>
+                  <img src={trash} />
+                </button>
+              </S.CartItem>
+            ))}
+          </ul>
+          <S.Infos>
+            <li>Valor Total</li>
+            <li>{formatPrice(totalPrice)}</li>
+          </S.Infos>
+          <Button
+            type={'button'}
+            title={'Continuar com a entrega'}
+            onClick={Next}
+          >
+            Continuar com a entrega
+          </Button>
+        </>
+      ) : (
+        <p className="empty">O carrinho está vazio</p>
+      )}
     </S.CartContainer>
   )
 }
