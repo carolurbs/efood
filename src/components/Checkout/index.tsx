@@ -1,7 +1,12 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useSelector } from 'react-redux'
+import InputMask from 'react-input-mask'
+import { useEffect, useState } from 'react'
 import { usePurchaseMutation } from '../../services/api'
-import { useState } from 'react'
+import { RootReducer } from '../../store'
+import { useDispatch } from 'react-redux'
+import { clear } from '../../store/reducers/cart'
 import { formatPrice } from '../ProductsList'
 import Button from '../Button'
 import * as S from './style'
@@ -13,7 +18,9 @@ export type Props = {
 }
 const Checkout = ({ Exit, price, Cart }: Props) => {
   const [step, setStep] = useState(0)
+  const { items } = useSelector((state: RootReducer) => state.cart)
   const [purchase, { isSuccess, isLoading, data }] = usePurchaseMutation()
+  const dispatch = useDispatch()
   const Advance = () => {
     setStep((step) => step + 1)
   }
@@ -29,6 +36,12 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
       alert('Desculpe, ocorreu um erro')
     }
   }
+  useEffect(() => {
+    if (step === 2) {
+      dispatch(clear())
+    }
+  }),
+    [isSuccess, dispatch]
   const form = useFormik({
     initialValues: {
       fullName: '',
@@ -106,7 +119,10 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             }
           }
         },
-        products: []
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco as number
+        }))
       })
     }
   })
@@ -161,14 +177,15 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="cep">CEP</label>
-                <input
+                <InputMask
                   className={getErrorMessage('cep') ? 'error medium' : 'medium'}
                   id="cep"
-                  type="number"
+                  type="text"
                   name="cep"
                   value={form.values.cep}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
+                  mask="99999-999"
                 />
               </S.InputGroup>
               <S.InputGroup>
@@ -237,21 +254,22 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="cardNumber">Número do Cartão</label>
-                <input
+                <InputMask
                   className={
                     getErrorMessage('cardNumber') ? 'error long' : 'long'
                   }
                   id="cardNumber"
-                  type="number"
+                  type="text"
                   name="cardNumber"
                   value={form.values.cardNumber}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
+                  mask="9999 9999 9999 9999"
                 />
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="cardCode">CVV</label>
-                <input
+                <InputMask
                   className={
                     getErrorMessage('cardCode') ? 'error short' : 'short'
                   }
@@ -261,13 +279,14 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   value={form.values.cardCode}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
+                  mask="999"
                 />
               </S.InputGroup>
             </S.GroupContainer>
             <S.GroupContainer>
               <S.InputGroup>
                 <label htmlFor="expireMonth">Mês de Vencimento</label>
-                <input
+                <InputMask
                   className={
                     getErrorMessage('expireMonth') ? 'error medium' : 'medium'
                   }
@@ -277,11 +296,12 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   value={form.values.expireMonth}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
+                  mask="99"
                 />
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="expireYear">Ano de Vencimento</label>
-                <input
+                <InputMask
                   className={
                     getErrorMessage('expireYear') ? 'error medium' : 'medium'
                   }
@@ -291,6 +311,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   value={form.values.expireYear}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
+                  mask="9999"
                 />
               </S.InputGroup>
             </S.GroupContainer>
