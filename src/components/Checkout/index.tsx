@@ -234,8 +234,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
         </Button>
       </S.CheckoutContainer>
     )
-  }
-  if (step === 1) {
+  } else if (step === 1) {
     return (
       <S.CheckoutContainer>
         <h3>Pagamento - Valor a pagar ${formatPrice(price)}</h3>
@@ -334,8 +333,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
         </Button>
       </S.CheckoutContainer>
     )
-  }
-  if (step === 2) {
+  } else if (step === 2) {
     return (
       <S.CheckoutContainer>
         {data && isSuccess ? (
