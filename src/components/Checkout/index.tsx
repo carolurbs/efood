@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useSelector } from 'react-redux'
-import InputMask from 'react-input-mask'
+import InputMask from 'react-input-mask-next'
 import { useEffect, useState } from 'react'
 import { usePurchaseMutation } from '../../services/api'
 import { RootReducer } from '../../store'
@@ -37,11 +37,11 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
     }
   }
   useEffect(() => {
-    if (step === 2) {
+    if (step === 2 && isSuccess) {
       dispatch(clear())
     }
-  }),
-    [isSuccess, dispatch]
+  }, [isSuccess, dispatch, step])
+
   const form = useFormik({
     initialValues: {
       fullName: '',

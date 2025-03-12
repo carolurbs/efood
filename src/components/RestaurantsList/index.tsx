@@ -20,17 +20,16 @@ const RestaurantsList = ({ restaurants, isLoading }: Props) => {
       <div className="container">
         <List>
           {restaurants.map((restaurant) => (
-            <>
-              <Restaurant
-                id={restaurant.id}
-                title={restaurant.titulo}
-                featured={restaurant.destacado}
-                category={capitalize(restaurant.tipo)}
-                rating={restaurant.avaliacao}
-                description={restaurant.descricao}
-                image={restaurant.capa}
-              />
-            </>
+            <Restaurant
+              key={restaurant.id}
+              id={restaurant.id}
+              title={restaurant.titulo}
+              featured={restaurant.destacado}
+              category={capitalize(restaurant.tipo)}
+              rating={restaurant.avaliacao}
+              description={restaurant.descricao}
+              image={restaurant.capa}
+            />
           ))}
         </List>
       </div>

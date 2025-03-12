@@ -53,18 +53,16 @@ const ProductsList = ({ dishes, isLoading }: Props) => {
       <div className="container">
         <S.List>
           {dishes.map((dishes) => (
-            <>
-              <Product
-                key={dishes.id}
-                id={dishes.id}
-                title={dishes.nome}
-                description={dishes.descricao}
-                image={dishes.foto}
-                price={dishes.preco}
-                portion={dishes.porcao}
-                onButtonClick={() => openModal(dishes)}
-              />
-            </>
+            <Product
+              key={dishes.id}
+              id={dishes.id}
+              title={dishes.nome}
+              description={dishes.descricao}
+              image={dishes.foto}
+              price={dishes.preco}
+              portion={dishes.porcao}
+              onButtonClick={() => openModal(dishes)}
+            />
           ))}
         </S.List>
       </div>
