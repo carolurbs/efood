@@ -73,6 +73,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
     }),
 
     onSubmit: (values) => {
+      console.log('aaaaaaaa')
       purchase({
         delivery: {
           receiver: values.fullName,
@@ -199,6 +200,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
           <Button
             type={'submit'}
             title={'Continuar com o pagamento'}
+            onClick={form.handleSubmit}
             disabled={isLoading}
           >
             {isLoading ? 'Processando' : 'Continuar com o pagamento'}
@@ -299,6 +301,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
             type={'submit'}
             title={'Finalizar pagamento'}
             disabled={isLoading}
+            onClick={form.handleSubmit}
           >
             {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
           </Button>
