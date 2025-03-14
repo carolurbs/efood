@@ -60,72 +60,56 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
       fullName: Yup.string()
         .min(5, 'O nome precisa ter pelo menos cinco caracteres')
         .required('O campo é obrigatório'),
-      address: Yup.string()
-        .min(10, 'Endereço inválido')
-        .required('Campo obrigatório'),
-      city: Yup.string()
-        .min(5, 'Cidade inválida')
-        .required('Campo Obrigatório'),
-      cep: Yup.string()
-        .min(9, 'CEP inválido')
-        .max(9, 'CEP inválido')
-        .required('Campo Obrigatório'),
+      address: Yup.string().required('Campo obrigatório'),
+      city: Yup.string().required('Campo Obrigatório'),
+      cep: Yup.string().required('Campo Obrigatório'),
       addressNumber: Yup.string()
         .min(2, 'Número Inválido')
         .max(2, 'Número Inválido')
         .required('Campo Obrigatório'),
-      apartment: Yup.string(),
-      cardOwnerName: Yup.string()
+      apartment: Yup.string().min(2, 'Número Inválido'),
+      cardOwner: Yup.string()
         .min(5, 'O nome precisa ter pelo menos cinco caracteres')
         .required('O campo é obrigatório'),
-      cardNumber: Yup.string()
-        .min(13, 'Número inválido')
-        .max(20, 'Número inválido')
-        .required('O campo é obrigatório'),
-      cardCode: Yup.string()
-        .min(3, 'Número inválido')
-        .max(3, 'Número inválido')
-        .required('O campo é obrigatório'),
-      expireMonth: Yup.string()
-        .min(2, 'Data inválida')
-        .max(2, 'Data inválida')
-        .required('O campo é obrigatório'),
-      expireYear: Yup.string()
-        .min(2, 'Data inválida')
-        .max(4, 'Data inválida')
-        .required('O campo é obrigatório')
+      cardNumber: Yup.string().required('O campo é obrigatório'),
+      cardCode: Yup.string().required('O campo é obrigatório'),
+      expireMonth: Yup.string().required('O campo é obrigatório'),
+      expireYear: Yup.string().required('O campo é obrigatório')
     }),
 
-    onSubmit: (values) => {
-      console.log('aaaaaaaaaaaaa')
-      purchase({
-        delivery: {
-          receiver: values.fullName,
-          address: {
-            description: values.address,
-            city: values.city,
-            zipCode: values.cep,
-            number: Number(values.addressNumber),
-            complement: values.apartment
-          }
-        },
-        payment: {
-          card: {
-            name: values.cardOwner,
-            number: values.cardNumber,
-            code: Number(values.cardCode),
-            expires: {
-              month: Number(values.expireMonth),
-              year: Number(values.expireYear)
+    onSubmit: async (values) => {
+      try {
+        await purchase({
+          delivery: {
+            receiver: values.fullName,
+            address: {
+              description: values.address,
+              city: values.city,
+              zipCode: values.cep,
+              number: Number(values.addressNumber),
+              complement: values.apartment
             }
-          }
-        },
-        products: items.map((item) => ({
-          id: item.id,
-          price: item.preco as number
-        }))
-      })
-      CheckStatus()
+          },
+          payment: {
+            card: {
+              name: values.cardOwner,
+              number: values.cardNumber,
+              code: Number(values.cardCode),
+              expires: {
+                month: Number(values.expireMonth),
+                year: Number(values.expireYear)
+              }
+            }
+          },
+          products: items.map((item) => ({
+            id: item.id,
+            price: item.preco as number
+          }))
+        }).unwrap()
+        CheckStatus()
+      } catch (error) {
+        alert('Desculpe. Ocorreu um erro')
+      }
     }
   })
   const getErrorMessage = (fieldName: string) => {
@@ -216,22 +200,22 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
               onBlur={form.handleBlur}
             />
           </S.InputGroup>
+          <Button
+            type={'submit'}
+            title={'Continuar com o pagamento'}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Processando' : 'Continuar com o pagamento'}
+          </Button>
+          <Button
+            type={'button'}
+            title={'Voltar para o carrinho'}
+            onClick={Cart}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
+          </Button>
         </S.FormContainer>
-        <Button
-          type={'submit'}
-          title={'Continuar com o pagamento'}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Processando' : 'Continuar com o pagamento'}
-        </Button>
-        <Button
-          type={'button'}
-          title={'Voltar para o carrinho'}
-          onClick={Cart}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
-        </Button>
       </S.CheckoutContainer>
     )
   } else if (step === 1) {
@@ -315,22 +299,22 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
               />
             </S.InputGroup>
           </S.GroupContainer>
+          <Button
+            type={'submit'}
+            title={'Finalizar pagamento'}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
+          </Button>
+          <Button
+            type={'button'}
+            title={'Voltar para a edição de endereço'}
+            onClick={Back}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Voltando...' : 'Voltar para a edição de endereço'}
+          </Button>
         </S.FormContainer>
-        <Button
-          type={'submit'}
-          title={'Finalizar pagamento'}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
-        </Button>
-        <Button
-          type={'button'}
-          title={'Voltar para a edição de endereço'}
-          onClick={Back}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Voltando...' : 'Voltar para a edição de endereço'}
-        </Button>
       </S.CheckoutContainer>
     )
   } else if (step === 2) {
