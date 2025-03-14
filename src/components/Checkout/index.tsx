@@ -30,12 +30,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
   const Reset = () => {
     setStep(0)
   }
-  const CheckStatus = () => {
-    if (isSuccess) Advance()
-    else {
-      alert('Desculpe, ocorreu um erro')
-    }
-  }
+
   useEffect(() => {
     if (step === 2 && isSuccess) {
       dispatch(clear())
@@ -77,39 +72,34 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
       expireYear: Yup.string().required('O campo é obrigatório')
     }),
 
-    onSubmit: async (values) => {
-      try {
-        await purchase({
-          delivery: {
-            receiver: values.fullName,
-            address: {
-              description: values.address,
-              city: values.city,
-              zipCode: values.cep,
-              number: Number(values.addressNumber),
-              complement: values.apartment
+    onSubmit: (values) => {
+      purchase({
+        delivery: {
+          receiver: values.fullName,
+          address: {
+            description: values.address,
+            city: values.city,
+            zipCode: values.cep,
+            number: Number(values.addressNumber),
+            complement: values.apartment
+          }
+        },
+        payment: {
+          card: {
+            name: values.cardOwner,
+            number: values.cardNumber,
+            code: Number(values.cardCode),
+            expires: {
+              month: Number(values.expireMonth),
+              year: Number(values.expireYear)
             }
-          },
-          payment: {
-            card: {
-              name: values.cardOwner,
-              number: values.cardNumber,
-              code: Number(values.cardCode),
-              expires: {
-                month: Number(values.expireMonth),
-                year: Number(values.expireYear)
-              }
-            }
-          },
-          products: items.map((item) => ({
-            id: item.id,
-            price: item.preco as number
-          }))
-        }).unwrap()
-        CheckStatus()
-      } catch (error) {
-        alert('Desculpe. Ocorreu um erro')
-      }
+          }
+        },
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco as number
+        }))
+      })
     }
   })
   const getErrorMessage = (fieldName: string) => {
@@ -118,6 +108,12 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
     const hasError = isTouched && isInvalid
     return hasError
   }
+  useEffect(() => {
+    if (isSuccess) {
+      Advance()
+    }
+  }, [isSuccess])
+
   if (step === 0) {
     return (
       <S.CheckoutContainer>
