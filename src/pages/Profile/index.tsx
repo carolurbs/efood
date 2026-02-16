@@ -9,7 +9,7 @@ import Loader from '../../components/Loader'
 import { colors } from '../../styles'
 const Profile = () => {
   const { id } = useParams()
-  const { data: locals, isLoading } = useGetMenuQuery(id!)
+  const { data: locals, isLoading } = useGetMenuQuery(id || '')
 
   return (
     <>
