@@ -10,10 +10,10 @@ type Props = {
 }
 
 const Button = ({ type, title, to, onClick, children, disabled }: Props) => {
-  if (type === 'button') {
+  if (type === 'button' || type === 'submit') {
     return (
       <ButtonContainer
-        type="button"
+        type={type}
         title={title}
         onClick={onClick}
         disabled={disabled}
@@ -22,13 +22,7 @@ const Button = ({ type, title, to, onClick, children, disabled }: Props) => {
       </ButtonContainer>
     )
   }
-  if (type === 'submit') {
-    return (
-      <ButtonContainer type="submit" title={title} disabled={disabled}>
-        {children}
-      </ButtonContainer>
-    )
-  }
+
   return (
     <ButtonLink to={to as string} title={title}>
       {children}

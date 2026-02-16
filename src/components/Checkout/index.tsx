@@ -30,18 +30,26 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
   const Reset = () => {
     setStep(0)
   }
-  const CheckStatus = () => {
-    if (isSuccess) Advance()
-    else {
-      alert('Desculpe, ocorreu um erro')
-    }
-  }
+
   useEffect(() => {
     if (step === 2 && isSuccess) {
       dispatch(clear())
     }
   }, [isSuccess, dispatch, step])
-
+  const addressSchema = Yup.object({
+    fullName: Yup.string().required('Campo obrigatório'),
+    address: Yup.string().required('Campo obrigatório'),
+    city: Yup.string().required('Campo obrigatório'),
+    cep: Yup.string().required('Campo obrigatório'),
+    addressNumber: Yup.string().required('Campo obrigatório')
+  })
+  const paymentSchema = Yup.object({
+    cardOwner: Yup.string().required('Campo obrigatório'),
+    cardNumber: Yup.string().required('Campo obrigatório'),
+    cardCode: Yup.string().required('Campo obrigatório'),
+    expireMonth: Yup.string().required('Campo obrigatório'),
+    expireYear: Yup.string().required('Campo obrigatório')
+  })
   const form = useFormik({
     initialValues: {
       fullName: '',
@@ -56,48 +64,9 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
       expireMonth: '',
       expireYear: ''
     },
-    validationSchema: Yup.object({
-      fullName: Yup.string()
-        .min(5, 'O nome precisa ter pelo menos cinco caracteres')
-        .required('O campo é obrigatório'),
-      address: Yup.string()
-        .min(10, 'Endereço inválido')
-        .required('Campo obrigatório'),
-      city: Yup.string()
-        .min(5, 'Cidade inválida')
-        .required('Campo Obrigatório'),
-      cep: Yup.string()
-        .min(9, 'CEP inválido')
-        .max(9, 'CEP inválido')
-        .required('Campo Obrigatório'),
-      addressNumber: Yup.string()
-        .min(2, 'Número Inválido')
-        .max(2, 'Número Inválido')
-        .required('Campo Obrigatório'),
-      apartment: Yup.string(),
-      cardOwnerName: Yup.string()
-        .min(5, 'O nome precisa ter pelo menos cinco caracteres')
-        .required('O campo é obrigatório'),
-      cardNumber: Yup.string()
-        .min(13, 'Número inválido')
-        .max(20, 'Número inválido')
-        .required('O campo é obrigatório'),
-      cardCode: Yup.string()
-        .min(3, 'Número inválido')
-        .max(3, 'Número inválido')
-        .required('O campo é obrigatório'),
-      expireMonth: Yup.string()
-        .min(2, 'Data inválida')
-        .max(2, 'Data inválida')
-        .required('O campo é obrigatório'),
-      expireYear: Yup.string()
-        .min(2, 'Data inválida')
-        .max(4, 'Data inválida')
-        .required('O campo é obrigatório')
-    }),
+    validationSchema: step === 0 ? addressSchema : paymentSchema, // Alterna o schema
 
     onSubmit: (values) => {
-      console.log('aaaaaaaaaaaaa')
       purchase({
         delivery: {
           receiver: values.fullName,
@@ -125,15 +94,21 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
           price: item.preco as number
         }))
       })
-      CheckStatus()
     }
   })
+
   const getErrorMessage = (fieldName: string) => {
     const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
     const hasError = isTouched && isInvalid
     return hasError
   }
+  useEffect(() => {
+    if (isSuccess) {
+      Advance()
+    }
+  }, [isSuccess])
+
   if (step === 0) {
     return (
       <S.CheckoutContainer>
@@ -216,28 +191,28 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
               onBlur={form.handleBlur}
             />
           </S.InputGroup>
+          <Button
+            type={'submit'}
+            title={'Continuar com o pagamento'}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Processando' : 'Continuar com o pagamento'}
+          </Button>
+          <Button
+            type={'button'}
+            title={'Voltar para o carrinho'}
+            onClick={Cart}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
+          </Button>
         </S.FormContainer>
-        <Button
-          type={'submit'}
-          title={'Continuar com o pagamento'}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Processando' : 'Continuar com o pagamento'}
-        </Button>
-        <Button
-          type={'button'}
-          title={'Voltar para o carrinho'}
-          onClick={Cart}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Voltando...' : 'Voltar para o carrinho'}
-        </Button>
       </S.CheckoutContainer>
     )
   } else if (step === 1) {
     return (
       <S.CheckoutContainer>
-        <h3>Pagamento - Valor a pagar ${formatPrice(price)}</h3>
+        <h3>Pagamento - Valor a pagar {formatPrice(price)}</h3>
         <S.FormContainer onSubmit={form.handleSubmit}>
           <S.InputGroup>
             <label htmlFor="cardOwner">Nome no cartão</label>
@@ -274,7 +249,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   getErrorMessage('cardCode') ? 'error short' : 'short'
                 }
                 id="cardCode"
-                type="number"
+                type="text"
                 name="cardCode"
                 value={form.values.cardCode}
                 onChange={form.handleChange}
@@ -291,7 +266,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   getErrorMessage('expireMonth') ? 'error medium' : 'medium'
                 }
                 id="expireMonth"
-                type="number"
+                type="text"
                 name="expireMonth"
                 value={form.values.expireMonth}
                 onChange={form.handleChange}
@@ -306,7 +281,7 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
                   getErrorMessage('expireYear') ? 'error medium' : 'medium'
                 }
                 id="expireYear"
-                type="number"
+                type="text"
                 name="expireYear"
                 value={form.values.expireYear}
                 onChange={form.handleChange}
@@ -315,22 +290,22 @@ const Checkout = ({ Exit, price, Cart }: Props) => {
               />
             </S.InputGroup>
           </S.GroupContainer>
+          <Button
+            type={'submit'}
+            title={'Finalizar pagamento'}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
+          </Button>
+          <Button
+            type={'button'}
+            title={'Voltar para a edição de endereço'}
+            onClick={Back}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Voltando...' : 'Voltar para a edição de endereço'}
+          </Button>
         </S.FormContainer>
-        <Button
-          type={'submit'}
-          title={'Finalizar pagamento'}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
-        </Button>
-        <Button
-          type={'button'}
-          title={'Voltar para a edição de endereço'}
-          onClick={Back}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Voltando...' : 'Voltar para a edição de endereço'}
-        </Button>
       </S.CheckoutContainer>
     )
   } else if (step === 2) {
