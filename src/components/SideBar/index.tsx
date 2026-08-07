@@ -17,7 +17,9 @@ const SideBar = ({ isLoading }: Props) => {
   const dispatch = useDispatch()
   const closeBar = () => {
     dispatch(close())
+    setStep(0)
   }
+
   const Advance = () => {
     setStep((step) => step + 1)
   }

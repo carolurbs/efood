@@ -25,5 +25,18 @@ export const SideBarContainer = styled.div`
 export const SideBar = styled.aside`
   background-color: ${colors.salmon};
   z-index: 1;
-  padding: 32px 8px;
+  padding: 32px 16px;
+  width: clamp(280px, 85vw, 420px);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  @media (max-width: 420px) {
+    width: 85vw;
+    padding: 24px 14px;
+  }
+  @media (max-width: 320px) {
+    width: 78vw;
+    padding: 20px 12px;
+  }
 `

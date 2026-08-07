@@ -6,31 +6,37 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
   max-width: 304px;
-  height: 100%;
+  min-height: 100%;
   background-color: ${colors.salmon};
   color: ${colors.vanila};
-  @media (max-width: ${breakpoints.tablet}) {
-    max-height: 360px;
-  }
+  border-radius: 8px;
+  overflow: hidden;
   img {
-    max-height: 148px;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 180px;
+    object-fit: cover;
     margin-bottom: 8px;
     @media (max-width: ${breakpoints.tablet}) {
-      max-height: 100px;
+      max-height: 140px;
     }
   }
 `
 export const Content = styled.div`
-  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  min-height: 100%;
   ${ButtonContainer} {
     background-color: ${colors.vanila};
     color: ${colors.salmon};
     border: none;
     width: 100%;
     display: block;
+    margin-top: auto;
   }
 `
 export const Description = styled.p`
@@ -38,4 +44,5 @@ export const Description = styled.p`
   line-height: 24px;
   font-size: 16px;
   padding: 8px 0;
+  min-height: 72px;
 `

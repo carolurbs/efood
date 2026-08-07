@@ -4,20 +4,21 @@ import { ButtonContainer } from '../Button/styles'
 
 export const Container = styled.div`
   width: 100%;
-  padding: 64px 172px 120px;
+  padding: 64px 24px 120px;
   @media (max-width: ${breakpoints.desktop}) {
-    padding: 120px;
+    padding: 64px 24px;
   }
   @media (max-width: ${breakpoints.tablet}) {
-    padding: 80px;
+    padding: 48px 16px;
   }
 `
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  align-items: stretch;
   @media (max-width: ${breakpoints.desktop}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   @media (max-width: ${breakpoints.tablet}) {
     grid-template-columns: 1fr;
@@ -59,7 +60,7 @@ export const ModalContainer = styled.div`
     margin-right: 120px;
   }
   @media (max-width: ${breakpoints.tablet}){
-  width: 320px;
+  width: 280px;
   margin-right: 80px;
   }
     header{

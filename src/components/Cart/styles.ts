@@ -21,8 +21,9 @@ export const CartContainer = styled.aside`
 `
 export const Infos = styled.ul`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 12px;
   color: ${colors.cream};
   font-size: 16px;
   font-weight: 700;
@@ -32,21 +33,25 @@ export const Infos = styled.ul`
 export const CartItem = styled.li`
   position: relative;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   background-color: ${colors.cream};
-  padding: 12px 8px;
-  width: 344px;
-  gap: 8px;
+  padding: 12px;
+  width: 100%;
+  max-width: 100%;
+  gap: 12px;
   margin-bottom: 16px;
   img {
     height: 80px;
     width: 80px;
     object-fit: cover;
+    flex-shrink: 0;
   }
   .icon {
     position: absolute;
-    top: 64px;
-    left: 320px;
-    backgrond-color: transparent;
+    top: 12px;
+    right: 12px;
+    background-color: transparent;
     border: none;
     height: 16px;
     width: 16px;
@@ -58,7 +63,7 @@ export const CartItem = styled.li`
   h3 {
     font-size: 18px;
     font-weight: 900;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     line-height: 21px;
   }
   span {
